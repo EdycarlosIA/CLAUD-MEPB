@@ -3,7 +3,7 @@ import { PageHero, Versiculo } from "@/components/layout/Pagina";
 import { Card, CardCorpo } from "@/components/ui/Card";
 import { BotaoLink } from "@/components/ui/Botao";
 import { Reveal } from "@/components/ui/Reveal";
-import { Tocha } from "@/components/marca/Tocha";
+import { CongregacaoEmOracao } from "@/components/marca/Sacro";
 
 export const metadata: Metadata = {
   title: "Conheça Jesus",
@@ -102,10 +102,11 @@ export default function ConhecaJesusPage() {
       {/* Oração */}
       <section className="relative overflow-hidden bg-[var(--mepb-navy-900)] text-white section-y">
         <div aria-hidden="true" className="dot-grid absolute inset-0 opacity-60" />
-        <Tocha
-          className="absolute -right-8 top-1/2 h-[26rem] w-auto -translate-y-1/2 text-white"
-          opacidade={0.05}
-        />
+        {/* Congregação ao pé da seção: a oração abaixo é feita em companhia,
+            não isoladamente. */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 opacity-25">
+          <CongregacaoEmOracao claro />
+        </div>
 
         <div className="container-portal relative">
           <div className="mx-auto max-w-2xl text-center">

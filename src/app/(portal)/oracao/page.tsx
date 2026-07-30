@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PageHero, Versiculo } from "@/components/layout/Pagina";
 import { Formulario } from "@/components/formularios/Formulario";
 import { Card, CardCorpo } from "@/components/ui/Card";
+import { TrioEmOracao } from "@/components/marca/Sacro";
 
 export const metadata: Metadata = {
   title: "Pedido de Oração",
@@ -97,6 +98,15 @@ export default function OracaoPage() {
           </div>
 
           <aside className="space-y-6">
+            <Card className="overflow-hidden">
+              <TrioEmOracao className="-mb-6" />
+              <CardCorpo className="pt-0">
+                <p className="text-center font-serif text-lg italic leading-relaxed text-fg-muted">
+                  Ninguém ora sozinho aqui.
+                </p>
+              </CardCorpo>
+            </Card>
+
             <Card>
               <CardCorpo>
                 <h2 className="text-lg font-semibold">Como funciona</h2>

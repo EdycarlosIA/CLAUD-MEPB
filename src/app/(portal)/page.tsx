@@ -24,6 +24,7 @@ import { BotaoLink } from "@/components/ui/Botao";
 import { Card, CardCorpo } from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tocha } from "@/components/marca/Tocha";
+import { CongregacaoEmOracao } from "@/components/marca/Sacro";
 import { CardDepartamento, CardEvento, CardNoticia } from "@/components/cards";
 
 import { ACESSO_RAPIDO, NUMEROS } from "@/content/site";
@@ -107,8 +108,8 @@ export default function Home() {
       <section className="border-y border-line bg-bg-subtle section-y">
         <div className="container-portal">
           <TituloSecao
-            sobretitulo="Acesso rápido"
-            titulo="Por onde você quer começar?"
+            sobretitulo="Comece por aqui"
+            titulo="O que você procura hoje?"
             centralizado
           />
 
@@ -248,12 +249,14 @@ export default function Home() {
             </Reveal>
 
             <Reveal atraso={140}>
-              <Versiculo
-                claro
-                texto="E este evangelho do reino será pregado em todo o mundo, em testemunho a todas as nações, e então virá o fim."
-                referencia="Mateus 24.14"
-                className="rounded-[var(--radius-xl)] border border-white/15 bg-white/[0.04] px-8 py-14 backdrop-blur-sm"
-              />
+              <div className="rounded-[var(--radius-xl)] border border-white/15 bg-white/[0.04] px-8 pb-4 pt-12 backdrop-blur-sm">
+                <Versiculo
+                  claro
+                  texto="E este evangelho do reino será pregado em todo o mundo, em testemunho a todas as nações, e então virá o fim."
+                  referencia="Mateus 24.14"
+                />
+                <CongregacaoEmOracao claro className="mt-10" />
+              </div>
             </Reveal>
           </div>
         </div>
@@ -283,8 +286,17 @@ export default function Home() {
       </section>
 
       {/* ================= Convite ================= */}
-      <section className="border-t border-line bg-bg-subtle section-y">
-        <div className="container-portal">
+      <section className="relative overflow-hidden border-t border-line bg-bg-subtle section-y">
+        {/* A congregação em oração ancora o convite: antes de qualquer botão,
+            o visitante vê pessoas — não um bloco de texto institucional. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 opacity-[0.13]"
+        >
+          <CongregacaoEmOracao />
+        </div>
+
+        <div className="container-portal relative">
           <Reveal>
             <div className="mx-auto max-w-3xl text-center">
               <h2 className="text-balance text-3xl font-semibold md:text-4xl">

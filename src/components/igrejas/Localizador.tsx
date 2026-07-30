@@ -197,7 +197,7 @@ export function Localizador() {
       </div>
 
       {/* ---------------- Resultados ---------------- */}
-      <div className="mt-10 grid gap-10 lg:grid-cols-[22rem_1fr] lg:gap-12">
+      <div className="mt-10 grid gap-10 lg:grid-cols-[26rem_1fr] lg:gap-12">
         {/* Mapa — aparece depois dos resultados no mobile (order) */}
         <aside className="order-2 lg:order-1">
           <div className="lg:sticky lg:top-[calc(var(--nav-height)+1.5rem)]">

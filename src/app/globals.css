@@ -1,0 +1,614 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   PORTAL MEPB — ARQUITETURA DE DESIGN TOKENS
+   --------------------------------------------------------------------------
+   Três camadas, na ordem em que devem ser consumidas:
+
+     1. PRIMITIVA  --mepb-*      valores brutos. Nunca usar direto em componente.
+     2. SEMÂNTICA  --sem-*       significado. É o que o tema troca no modo escuro.
+     3. COMPONENTE --btn-*, --card-*, --nav-*  amarrado a um componente.
+
+   Regra: um componente lê tokens de componente ou semânticos. Se um componente
+   referenciar uma primitiva, o modo escuro quebra — é o sinal de que a camada
+   semântica está faltando.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CAMADA 1 — PRIMITIVAS
+   Escalas derivadas da logomarca oficial da MEPB.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Vermelho institucional — âncora #C8202F */
+  --mepb-red-50: #fdf3f3;
+  --mepb-red-100: #fbe3e4;
+  --mepb-red-200: #f7cbcd;
+  --mepb-red-300: #f0a5a9;
+  --mepb-red-400: #e4696f;
+  --mepb-red-500: #d43a44;
+  --mepb-red-600: #c8202f; /* cor da marca — 5.67:1 sobre branco */
+  --mepb-red-700: #a81a27;
+  --mepb-red-800: #8a1822;
+  --mepb-red-900: #741921;
+
+  /* Azul-marinho institucional — âncora #182050 */
+  --mepb-navy-50: #f3f4f9;
+  --mepb-navy-100: #e5e7f2;
+  --mepb-navy-200: #ccd1e6;
+  --mepb-navy-300: #a5aed3;
+  --mepb-navy-400: #7783ba;
+  --mepb-navy-500: #5560a1;
+  --mepb-navy-600: #414a85;
+  --mepb-navy-700: #343a6c;
+  --mepb-navy-800: #232a5c;
+  --mepb-navy-900: #182050; /* cor da marca — 15.4:1 sobre branco */
+  --mepb-navy-950: #0d1129;
+
+  /* Azul médio do nome na logomarca — âncora #2E5C99 */
+  --mepb-blue-50: #f1f6fc;
+  --mepb-blue-100: #e0ecf8;
+  --mepb-blue-200: #c7dcf2;
+  --mepb-blue-300: #9ec4e8;
+  --mepb-blue-400: #6ea4da;
+  --mepb-blue-500: #4a85c8;
+  --mepb-blue-600: #2e5c99; /* 6.76:1 sobre branco */
+  --mepb-blue-700: #27507f;
+  --mepb-blue-800: #244469;
+  --mepb-blue-900: #223a58;
+
+  /* Verde do mapa — cor de apoio, âncora #8FC9A9.
+     Os tons claros são decorativos; texto só a partir de 700. */
+  --mepb-green-50: #f2faf6;
+  --mepb-green-100: #dff3e8;
+  --mepb-green-200: #c1e7d3;
+  --mepb-green-300: #8fc9a9; /* cor da marca — decorativa */
+  --mepb-green-400: #63b189;
+  --mepb-green-500: #40946b;
+  --mepb-green-600: #2f7d5a; /* 5.0:1 sobre branco — mínimo para texto */
+  --mepb-green-700: #276448;
+  --mepb-green-800: #22503b;
+  --mepb-green-900: #1e4232;
+
+  /* Dourado sóbrio — usado apenas na tocha e em selos de destaque */
+  --mepb-gold-300: #e8c98a;
+  --mepb-gold-500: #c9a227;
+  --mepb-gold-700: #8f7118;
+
+  /* Neutros com leve viés azulado, para casar com o azul-marinho */
+  --mepb-neutral-0: #ffffff;
+  --mepb-neutral-50: #fafbfd;
+  --mepb-neutral-100: #f4f6fa;
+  --mepb-neutral-200: #e7eaf1;
+  --mepb-neutral-300: #d3d8e4;
+  --mepb-neutral-400: #a8b0c4;
+  --mepb-neutral-500: #7b8499;
+  --mepb-neutral-600: #55607a; /* 6.29:1 sobre branco — texto secundário */
+  --mepb-neutral-700: #3f4860;
+  --mepb-neutral-800: #2b3247;
+  --mepb-neutral-900: #1a1f30;
+
+  /* Estados */
+  --mepb-success: #2f7d5a;
+  --mepb-warning: #8f7118;
+  --mepb-danger: #a81a27;
+
+  /* Tipografia — escala modular 1.25 (terça maior) sobre base de 16px */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.375rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2.125rem;
+  --font-size-4xl: 2.75rem;
+  --font-size-5xl: 3.5rem;
+  --font-size-6xl: 4.25rem;
+
+  /* Espaçamento — grade de 4px */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+  --space-32: 8rem;
+
+  /* Raio — bordas suaves, nunca pílulas exageradas em blocos de conteúdo */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+  --radius-full: 9999px;
+
+  /* Sombras — leves; profundidade vem do espaço, não da sombra */
+  --shadow-xs: 0 1px 2px 0 rgb(24 32 80 / 0.04);
+  --shadow-sm: 0 1px 3px 0 rgb(24 32 80 / 0.06), 0 1px 2px -1px rgb(24 32 80 / 0.04);
+  --shadow-md: 0 4px 12px -2px rgb(24 32 80 / 0.08), 0 2px 6px -2px rgb(24 32 80 / 0.04);
+  --shadow-lg: 0 12px 28px -6px rgb(24 32 80 / 0.12), 0 4px 10px -4px rgb(24 32 80 / 0.06);
+  --shadow-xl: 0 24px 48px -12px rgb(24 32 80 / 0.16);
+
+  /* Movimento */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 420ms;
+
+  /* Medidas de layout */
+  --container-max: 80rem;   /* 1280px */
+  --prose-max: 42rem;       /* ~68 caracteres por linha */
+  --navbar-h: 4.5rem;
+  --tap-target: 2.75rem;    /* 44px — mínimo WCAG 2.2 AA */
+}
+
+/* --------------------------------------------------------------------------
+   CAMADA 2 — SEMÂNTICA (tema claro)
+   Só esta camada muda entre os temas.
+   -------------------------------------------------------------------------- */
+:root {
+  --sem-bg: var(--mepb-neutral-0);
+  --sem-bg-subtle: var(--mepb-neutral-50);
+  --sem-bg-muted: var(--mepb-neutral-100);
+  --sem-bg-inverse: var(--mepb-navy-900);
+
+  --sem-surface: var(--mepb-neutral-0);
+  --sem-surface-raised: var(--mepb-neutral-0);
+  --sem-surface-sunken: var(--mepb-neutral-100);
+
+  --sem-fg: var(--mepb-navy-900);          /* 15.4:1 */
+  --sem-fg-muted: var(--mepb-neutral-600); /*  6.3:1 */
+  --sem-fg-subtle: var(--mepb-neutral-500);/*  4.6:1 — apenas texto ≥16px */
+  --sem-fg-inverse: var(--mepb-neutral-0);
+  --sem-fg-on-primary: var(--mepb-neutral-0);
+
+  --sem-primary: var(--mepb-red-600);
+  --sem-primary-hover: var(--mepb-red-700);
+  --sem-primary-active: var(--mepb-red-800);
+  --sem-primary-subtle: var(--mepb-red-50);
+
+  --sem-secondary: var(--mepb-navy-900);
+  --sem-secondary-hover: var(--mepb-navy-800);
+  --sem-secondary-subtle: var(--mepb-navy-50);
+
+  --sem-accent: var(--mepb-blue-600);
+  --sem-accent-subtle: var(--mepb-blue-50);
+
+  --sem-support: var(--mepb-green-600);
+  --sem-support-subtle: var(--mepb-green-50);
+
+  --sem-border: var(--mepb-neutral-200);
+  --sem-border-strong: var(--mepb-neutral-300);
+  --sem-border-inverse: rgb(255 255 255 / 0.16);
+
+  --sem-ring: var(--mepb-blue-600);
+
+  --sem-success: var(--mepb-success);
+  --sem-warning: var(--mepb-warning);
+  --sem-danger: var(--mepb-danger);
+
+  /* Véu aplicado sobre imagens de hero para garantir contraste do texto */
+  --sem-scrim: linear-gradient(
+    180deg,
+    rgb(13 17 41 / 0.78) 0%,
+    rgb(13 17 41 / 0.62) 45%,
+    rgb(24 32 80 / 0.82) 100%
+  );
+}
+
+/* --------------------------------------------------------------------------
+   CAMADA 2 — SEMÂNTICA (tema escuro)
+   Base azul-marinho profundo: mantém a identidade em vez de virar cinza neutro.
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  --sem-bg: var(--mepb-navy-950);
+  --sem-bg-subtle: #111634;
+  --sem-bg-muted: #171d40;
+  --sem-bg-inverse: var(--mepb-neutral-0);
+
+  --sem-surface: #141a3a;
+  --sem-surface-raised: #1a2148;
+  --sem-surface-sunken: #0f1430;
+
+  --sem-fg: #eef0f7;
+  --sem-fg-muted: #b0b8d0;
+  --sem-fg-subtle: #8f98b5;
+  --sem-fg-inverse: var(--mepb-navy-900);
+  --sem-fg-on-primary: var(--mepb-neutral-0);
+
+  /* Vermelho é clareado no escuro: #c8202f sobre fundo escuro fica abaixo de 4.5:1 */
+  --sem-primary: var(--mepb-red-400);
+  --sem-primary-hover: var(--mepb-red-300);
+  --sem-primary-active: var(--mepb-red-200);
+  --sem-primary-subtle: rgb(228 105 111 / 0.14);
+
+  --sem-secondary: #eef0f7;
+  --sem-secondary-hover: #ffffff;
+  --sem-secondary-subtle: rgb(255 255 255 / 0.08);
+
+  --sem-accent: var(--mepb-blue-300);
+  --sem-accent-subtle: rgb(158 196 232 / 0.14);
+
+  --sem-support: var(--mepb-green-300);
+  --sem-support-subtle: rgb(143 201 169 / 0.14);
+
+  --sem-border: rgb(255 255 255 / 0.11);
+  --sem-border-strong: rgb(255 255 255 / 0.2);
+  --sem-border-inverse: rgb(24 32 80 / 0.16);
+
+  --sem-ring: var(--mepb-blue-300);
+
+  --sem-success: var(--mepb-green-300);
+  --sem-warning: var(--mepb-gold-300);
+  --sem-danger: var(--mepb-red-300);
+
+  --sem-scrim: linear-gradient(
+    180deg,
+    rgb(6 8 20 / 0.82) 0%,
+    rgb(6 8 20 / 0.68) 45%,
+    rgb(10 14 34 / 0.88) 100%
+  );
+
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 12px -2px rgb(0 0 0 / 0.45);
+  --shadow-lg: 0 12px 28px -6px rgb(0 0 0 / 0.5);
+  --shadow-xl: 0 24px 48px -12px rgb(0 0 0 / 0.55);
+}
+
+/* --------------------------------------------------------------------------
+   CAMADA 3 — TOKENS DE COMPONENTE
+   Um componente novo ganha suas variáveis aqui e nunca toca nas camadas 1 e 2.
+   -------------------------------------------------------------------------- */
+:root {
+  /* Botão */
+  --btn-height: var(--tap-target);
+  --btn-radius: var(--radius-md);
+  --btn-font-weight: 600;
+  --btn-primary-bg: var(--sem-primary);
+  --btn-primary-bg-hover: var(--sem-primary-hover);
+  --btn-primary-fg: var(--sem-fg-on-primary);
+  --btn-secondary-bg: var(--sem-secondary);
+  --btn-secondary-fg: var(--sem-fg-inverse);
+  --btn-outline-border: var(--sem-border-strong);
+  --btn-outline-fg: var(--sem-fg);
+
+  /* Card */
+  --card-bg: var(--sem-surface);
+  --card-border: var(--sem-border);
+  --card-radius: var(--radius-lg);
+  --card-shadow: var(--shadow-sm);
+  --card-shadow-hover: var(--shadow-lg);
+  --card-padding: var(--space-6);
+
+  /* Navbar */
+  --nav-height: var(--navbar-h);
+  --nav-bg-solid: var(--sem-bg);
+  --nav-fg-solid: var(--sem-fg);
+  --nav-fg-transparent: var(--mepb-neutral-0);
+  --nav-border: var(--sem-border);
+
+  /* Campos de formulário */
+  --field-height: var(--tap-target);
+  --field-bg: var(--sem-surface);
+  --field-border: var(--sem-border-strong);
+  --field-border-focus: var(--sem-ring);
+  --field-radius: var(--radius-md);
+  --field-fg: var(--sem-fg);
+  --field-placeholder: var(--sem-fg-subtle);
+  --field-error: var(--sem-danger);
+
+  /* Rodapé */
+  --footer-bg: var(--mepb-navy-900);
+  --footer-fg: rgb(255 255 255 / 0.78);
+  --footer-fg-strong: var(--mepb-neutral-0);
+  --footer-border: rgb(255 255 255 / 0.14);
+}
+
+[data-theme="dark"] {
+  --footer-bg: var(--mepb-navy-950);
+  --footer-border: rgb(255 255 255 / 0.1);
+}
+
+/* --------------------------------------------------------------------------
+   PONTE PARA O TAILWIND v4
+   `@theme inline` gera utilitários (bg-surface, text-fg-muted…) que apontam para
+   as variáveis semânticas — por isso o modo escuro funciona sem `dark:` em
+   cada elemento.
+   -------------------------------------------------------------------------- */
+@theme inline {
+  --color-bg: var(--sem-bg);
+  --color-bg-subtle: var(--sem-bg-subtle);
+  --color-bg-muted: var(--sem-bg-muted);
+  --color-bg-inverse: var(--sem-bg-inverse);
+
+  --color-surface: var(--sem-surface);
+  --color-surface-raised: var(--sem-surface-raised);
+  --color-surface-sunken: var(--sem-surface-sunken);
+
+  --color-fg: var(--sem-fg);
+  --color-fg-muted: var(--sem-fg-muted);
+  --color-fg-subtle: var(--sem-fg-subtle);
+  --color-fg-inverse: var(--sem-fg-inverse);
+
+  --color-primary: var(--sem-primary);
+  --color-primary-hover: var(--sem-primary-hover);
+  --color-primary-subtle: var(--sem-primary-subtle);
+
+  --color-secondary: var(--sem-secondary);
+  --color-secondary-subtle: var(--sem-secondary-subtle);
+
+  --color-accent: var(--sem-accent);
+  --color-accent-subtle: var(--sem-accent-subtle);
+
+  --color-support: var(--sem-support);
+  --color-support-subtle: var(--sem-support-subtle);
+
+  --color-line: var(--sem-border);
+  --color-line-strong: var(--sem-border-strong);
+
+  --color-success: var(--sem-success);
+  --color-warning: var(--sem-warning);
+  --color-danger: var(--sem-danger);
+
+  /* Primitivas expostas para uso decorativo (marca d'água, ilustrações SVG) */
+  --color-navy-900: var(--mepb-navy-900);
+  --color-navy-950: var(--mepb-navy-950);
+  --color-red-600: var(--mepb-red-600);
+  --color-gold-500: var(--mepb-gold-500);
+  --color-green-300: var(--mepb-green-300);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.25rem;
+
+  --shadow-xs: var(--shadow-xs);
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+
+  --ease-soft: var(--ease-out-soft);
+
+  --container-portal: var(--container-max);
+}
+
+/* ==========================================================================
+   BASE
+   ========================================================================== */
+@layer base {
+  * {
+    border-color: var(--sem-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Compensa a navbar fixa ao navegar por âncora */
+    scroll-padding-top: calc(var(--nav-height) + var(--space-4));
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--sem-bg);
+    color: var(--sem-fg);
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    font-size: var(--font-size-base);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-source-serif), ui-serif, Georgia, serif;
+    color: var(--sem-fg);
+    font-weight: 600;
+    line-height: 1.18;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+  }
+
+  h5, h6 {
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Foco visível e consistente em todo o portal (WCAG 2.4.7 / 2.4.11) */
+  :focus-visible {
+    outline: 2px solid var(--sem-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  /* Remove o anel apenas quando o foco vem do mouse */
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background-color: var(--mepb-navy-900);
+    color: #fff;
+  }
+
+  /* Melhora a leitura de números tabulares em tabelas e KPIs do admin */
+  [data-numeric] {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ==========================================================================
+   UTILITÁRIOS DO PROJETO
+   ========================================================================== */
+@layer utilities {
+  /* Contêiner padrão do portal */
+  .container-portal {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--space-6);
+  }
+
+  @media (min-width: 1024px) {
+    .container-portal {
+      padding-inline: var(--space-8);
+    }
+  }
+
+  /* Respiro vertical padrão entre seções */
+  .section-y {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 768px) {
+    .section-y {
+      padding-block: var(--space-24);
+    }
+  }
+
+  /* Largura ideal de leitura */
+  .prose-portal {
+    max-width: var(--prose-max);
+  }
+
+  .prose-portal p + p {
+    margin-top: var(--space-4);
+  }
+
+  /* Fio vermelho de 3px sob os títulos de seção — assinatura discreta da marca */
+  .rule-accent::after {
+    content: "";
+    display: block;
+    width: 2.75rem;
+    height: 3px;
+    margin-top: var(--space-4);
+    border-radius: var(--radius-full);
+    background-color: var(--sem-primary);
+  }
+
+  .rule-accent-center::after {
+    margin-inline: auto;
+  }
+
+  /* Véu sobre imagens de hero */
+  .scrim {
+    background-image: var(--sem-scrim);
+  }
+
+  /* Link de pular para o conteúdo — visível só ao receber foco por teclado */
+  .skip-link {
+    position: absolute;
+    left: var(--space-4);
+    top: calc(var(--space-4) * -8);
+    z-index: 100;
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--sem-primary);
+    color: #fff;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    transition: top var(--duration-fast) var(--ease-out-soft);
+  }
+
+  .skip-link:focus {
+    top: var(--space-4);
+  }
+
+  /*
+     Aparecimento suave de seções ao entrar na viewport.
+
+     O estado inicial oculto só é aplicado quando o JavaScript está ativo
+     (classe `js` no <html>, definida no script inline do layout). Sem essa
+     guarda, uma falha de script deixaria o conteúdo permanentemente invisível
+     — o texto continua no DOM, mas com `opacity: 0`.
+  */
+  .reveal {
+    transition:
+      opacity var(--duration-slow) var(--ease-out-soft),
+      transform var(--duration-slow) var(--ease-out-soft);
+  }
+
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  html.js .reveal[data-visible="true"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Textura sutil de pontos, usada em faixas escuras */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgb(255 255 255 / 0.11) 1px,
+      transparent 0
+    );
+    background-size: 26px 26px;
+  }
+
+  /* Corta o texto em N linhas mantendo altura previsível nos cards */
+  .clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Barra de rolagem discreta em listas internas */
+  .scrollbar-slim {
+    scrollbar-width: thin;
+    scrollbar-color: var(--sem-border-strong) transparent;
+  }
+}
+
+/* ==========================================================================
+   MOVIMENTO REDUZIDO (WCAG 2.3.3)
+   Uma única regra global desliga toda a animação do portal, inclusive a do
+   Framer Motion, que respeita `prefers-reduced-motion` por conta própria.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Impressão: documentos oficiais da Biblioteca precisam sair limpos */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+  }
+}

@@ -1,0 +1,59 @@
+# Infraestrutura de desenvolvimento do Portal MEPB.
+#
+#   docker compose up -d
+#   Strapi  → http://localhost:1337/admin
+#   Portal  → npm run dev → http://localhost:3000
+#
+# O portal do protótipo funciona sem estes serviços: ele lê os dados de
+# `src/content/`. Este arquivo prepara o caminho para a migração ao CMS,
+# descrita em docs/03-modelo-de-conteudo.md.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: mepb-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-mepb}
+      POSTGRES_USER: ${POSTGRES_USER:-mepb}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-mepb_dev}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-mepb} -d ${POSTGRES_DB:-mepb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  strapi:
+    image: strapi/strapi:latest
+    container_name: mepb-strapi
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-mepb}
+      DATABASE_USERNAME: ${POSTGRES_USER:-mepb}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-mepb_dev}
+      # Em produção, gerar chaves próprias e mantê-las fora do repositório.
+      APP_KEYS: ${APP_KEYS:-chaveDesenvolvimento1,chaveDesenvolvimento2}
+      API_TOKEN_SALT: ${API_TOKEN_SALT:-saltDeDesenvolvimento}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-segredoAdminDesenvolvimento}
+      JWT_SECRET: ${JWT_SECRET:-segredoJwtDesenvolvimento}
+      NODE_ENV: development
+    volumes:
+      - strapi-app:/srv/app
+      - strapi-uploads:/srv/app/public/uploads
+    ports:
+      - "1337:1337"
+
+volumes:
+  postgres-data:
+  strapi-app:
+  strapi-uploads:

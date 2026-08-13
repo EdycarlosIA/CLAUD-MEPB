@@ -28,13 +28,24 @@
   --support:var(--green-600); --support-subtle:#f2faf6;
   --border:var(--n200); --border-strong:var(--n300);
   --scrim:linear-gradient(180deg, rgb(13 17 41/.78) 0%, rgb(13 17 41/.62) 45%, rgb(24 32 80/.82) 100%);
-  --shadow-sm:0 1px 3px 0 rgb(24 32 80/.06),0 1px 2px -1px rgb(24 32 80/.04);
-  --shadow-md:0 4px 12px -2px rgb(24 32 80/.08),0 2px 6px -2px rgb(24 32 80/.04);
-  --shadow-lg:0 12px 28px -6px rgb(24 32 80/.12),0 4px 10px -4px rgb(24 32 80/.06);
+  /*
+    Escala de sombra em camadas: cada nível soma uma sombra rasa e "quente"
+    (tingida de navy, não preto puro) com uma sombra longa e muito difusa por
+    baixo. É essa combinação — não um único box-shadow — que lê como
+    "profundidade suave" em vez de "caixa com risco embaixo".
+  */
+  --shadow-xs:0 1px 2px rgb(24 32 80/.04);
+  --shadow-sm:0 1px 2px rgb(24 32 80/.04), 0 3px 8px -2px rgb(24 32 80/.07);
+  --shadow-md:0 2px 6px rgb(24 32 80/.05), 0 10px 24px -8px rgb(24 32 80/.12);
+  --shadow-lg:0 4px 10px rgb(24 32 80/.06), 0 20px 44px -12px rgb(24 32 80/.16);
+  --shadow-xl:0 8px 16px rgb(24 32 80/.07), 0 32px 64px -16px rgb(24 32 80/.2);
+  --glow-primary:0 0 0 1px rgb(200 32 47/.05), 0 8px 20px -6px rgb(200 32 47/.35);
   --font-serif:Georgia,'Times New Roman',serif;
   --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
-  --nav-h:4.5rem; --radius-sm:.375rem; --radius-md:.625rem; --radius-lg:.875rem; --radius-xl:1.25rem;
+  --nav-h:4.5rem; --radius-sm:.5rem; --radius-md:.75rem; --radius-lg:1.125rem; --radius-xl:1.625rem;
+  /* out para entrada (desacelera), spring para hover/press (leve overshoot) */
   --ease:cubic-bezier(.22,1,.36,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
 }
 :root[data-theme="dark"]{
   --bg:var(--navy-950); --bg-subtle:#111634; --bg-muted:#171d40; --surface:#141a3a;
@@ -44,8 +55,12 @@
   --support:var(--green-300); --support-subtle:rgb(143 201 169/.14);
   --border:rgb(255 255 255/.11); --border-strong:rgb(255 255 255/.2);
   --scrim:linear-gradient(180deg, rgb(6 8 20/.82) 0%, rgb(6 8 20/.68) 45%, rgb(10 14 34/.88) 100%);
-  --shadow-sm:0 1px 3px 0 rgb(0 0 0/.4); --shadow-md:0 4px 12px -2px rgb(0 0 0/.45);
-  --shadow-lg:0 12px 28px -6px rgb(0 0 0/.5);
+  --shadow-xs:0 1px 2px rgb(0 0 0/.3);
+  --shadow-sm:0 1px 2px rgb(0 0 0/.3), 0 3px 10px -2px rgb(0 0 0/.4);
+  --shadow-md:0 2px 6px rgb(0 0 0/.32), 0 12px 28px -8px rgb(0 0 0/.48);
+  --shadow-lg:0 4px 10px rgb(0 0 0/.35), 0 24px 52px -12px rgb(0 0 0/.55);
+  --shadow-xl:0 8px 18px rgb(0 0 0/.4), 0 36px 72px -16px rgb(0 0 0/.62);
+  --glow-primary:0 0 0 1px rgb(228 105 111/.1), 0 8px 22px -6px rgb(228 105 111/.4);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; scroll-padding-top:calc(var(--nav-h) + 1rem)}
@@ -55,7 +70,9 @@ p{margin:0}
 a{color:inherit; text-decoration:none}
 button{font:inherit; cursor:pointer; background:none; border:none; color:inherit}
 img,svg{display:block; max-width:100%}
-:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:var(--radius-sm)}
+/* Anel de foco em box-shadow: acompanha o raio do elemento, sem o corte reto
+   de um outline padrão — mais suave visualmente, mesma função de acessibilidade. */
+:focus-visible{outline:2px solid transparent; outline-offset:2px; box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent), 0 0 0 1.5px var(--accent); border-radius:var(--radius-sm); transition:box-shadow .15s var(--ease)}
 .container{width:100%; max-width:80rem; margin-inline:auto; padding-inline:1.5rem}
 @media(min-width:1024px){.container{padding-inline:2rem}}
 .section-y{padding-block:4rem}
@@ -66,40 +83,56 @@ img,svg{display:block; max-width:100%}
 [data-numeric]{font-variant-numeric:tabular-nums}
 .rule::after{content:"";display:block;width:2.75rem;height:3px;margin-top:1rem;border-radius:99px;background:var(--primary)}
 .rule-center::after{margin-inline:auto}
-.btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:2.75rem; padding:0 1.5rem; border-radius:var(--radius-md); font-weight:600; font-size:.9375rem; white-space:nowrap; transition:all .2s var(--ease)}
+.btn{position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.5rem; min-height:2.75rem; padding:0 1.5rem; border-radius:var(--radius-md); font-weight:600; font-size:.9375rem; white-space:nowrap; transition:transform .18s var(--ease-spring), box-shadow .25s var(--ease), background-color .2s var(--ease); overflow:hidden}
 .btn-lg{min-height:3.25rem; padding:0 2rem; font-size:1rem}
-.btn-primary{background:var(--primary); color:#fff; box-shadow:var(--shadow-sm)}
-.btn-primary:hover{background:var(--primary-hover); box-shadow:var(--shadow-md)}
-.btn-outline{border:1px solid var(--border-strong); color:var(--fg); background:transparent}
-.btn-outline:hover{background:var(--bg-muted)}
+/* Filete de luz no topo do botão — sutil, some no active. É esse detalhe,
+   mais do que a cor, que separa "botão CSS genérico" de "botão desenhado". */
+.btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg, rgb(255 255 255/.16), rgb(255 255 255/0) 45%);opacity:1;transition:opacity .2s var(--ease);pointer-events:none}
+.btn:active{transform:scale(.97)}
+.btn:active::after{opacity:0}
+.btn-primary{background:var(--primary); color:#fff; box-shadow:var(--shadow-sm), var(--glow-primary)}
+.btn-primary:hover{background:var(--primary-hover); box-shadow:var(--shadow-md), var(--glow-primary); transform:translateY(-1px)}
+.btn-outline{border:1px solid var(--border-strong); color:var(--fg); background:var(--surface)}
+.btn-outline::after{display:none}
+.btn-outline:hover{background:var(--bg-muted); border-color:color-mix(in srgb, var(--fg) 25%, var(--border-strong)); transform:translateY(-1px); box-shadow:var(--shadow-xs)}
 .btn-claro{background:rgb(255 255 255/.95); color:var(--navy-900); box-shadow:var(--shadow-md)}
-.btn-claro:hover{background:#fff}
-.card{position:relative; border:1px solid var(--border); background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); transition:all .25s var(--ease)}
-a.card:hover,.card.hoverable:hover{transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--border-strong)}
-.card-body{padding:1.5rem}
-.badge{display:inline-flex; align-items:center; gap:.375rem; padding:.25rem .75rem; border-radius:99px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em}
+.btn-claro:hover{background:#fff; transform:translateY(-1px); box-shadow:var(--shadow-lg)}
+.card{position:relative; border:1px solid color-mix(in srgb, var(--border) 70%, transparent); background:var(--surface); border-radius:var(--radius-lg); box-shadow:var(--shadow-sm); transition:transform .32s var(--ease), box-shadow .32s var(--ease), border-color .32s var(--ease)}
+a.card:hover,.card.hoverable:hover{transform:translateY(-5px); box-shadow:var(--shadow-xl); border-color:color-mix(in srgb, var(--accent) 22%, var(--border))}
+.card-body{padding:1.75rem}
+.badge{display:inline-flex; align-items:center; gap:.375rem; padding:.3rem .8rem; border-radius:99px; font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.07em}
 .badge-neutro{background:var(--bg-muted); color:var(--fg-muted)}
 .badge-primario{background:var(--primary-subtle); color:var(--primary)}
 .badge-azul{background:var(--accent-subtle); color:var(--accent)}
 .badge-verde{background:var(--support-subtle); color:var(--support)}
-.badge-claro{background:rgb(255 255 255/.15); color:#fff; backdrop-filter:blur(4px)}
+.badge-claro{background:rgb(255 255 255/.14); color:#fff; backdrop-filter:blur(6px); border:1px solid rgb(255 255 255/.14)}
 .icon{width:1.25rem; height:1.25rem; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
-.field{width:100%; min-height:2.75rem; border-radius:var(--radius-md); border:1px solid var(--border-strong); background:var(--surface); color:var(--fg); padding:0 1rem; font:inherit}
-.field:focus{border-color:var(--accent)}
-label.lbl{display:block; margin-bottom:.5rem; font-size:.875rem; font-weight:600}
+.field{width:100%; min-height:2.75rem; border-radius:var(--radius-md); border:1px solid var(--border-strong); background:var(--surface); color:var(--fg); padding:0 1rem; font:inherit; transition:border-color .2s var(--ease), box-shadow .2s var(--ease)}
+.field:hover{border-color:color-mix(in srgb, var(--fg) 20%, var(--border-strong))}
+.field:focus{border-color:var(--accent); outline:none; box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 16%, transparent)}
+label.lbl{display:block; margin-bottom:.55rem; font-size:.8125rem; font-weight:600; letter-spacing:.01em}
 .dot-grid{background-image:radial-gradient(circle at 1px 1px, rgb(255 255 255/.11) 1px, transparent 0); background-size:26px 26px}
-.reveal{opacity:0; transform:translateY(14px); transition:opacity .42s var(--ease), transform .42s var(--ease)}
+.reveal{opacity:0; transform:translateY(20px) scale(.985); transition:opacity .6s var(--ease), transform .6s var(--ease)}
 .reveal.visible{opacity:1; transform:none}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1!important; transform:none!important; transition:none!important} html{scroll-behavior:auto}}
 
 /* Mapa do Brasil */
-.uf-path{fill:var(--bg-muted); stroke:var(--bg); stroke-width:1.6; stroke-linejoin:round; transition:fill .25s var(--ease), transform .25s var(--ease), stroke-width .25s var(--ease)}
+.uf-path{fill:var(--bg-muted); stroke:var(--bg); stroke-width:1.6; stroke-linejoin:round; transition:fill .3s var(--ease), transform .3s var(--ease-spring), stroke-width .3s var(--ease), filter .3s var(--ease)}
 .uf-path.ativa{fill:var(--navy-900)}
-.uf-path.ativa.foco{fill:var(--blue-600); transform:scale(1.035); stroke-width:3; filter:drop-shadow(0 6px 10px rgb(24 32 80/.28))}
-.uf-path.selecionada{fill:var(--red-600)!important; stroke-width:3}
+.uf-path.ativa:hover{filter:brightness(1.08)}
+.uf-path.ativa.foco{fill:var(--blue-600); transform:scale(1.035); stroke-width:3; filter:drop-shadow(0 8px 16px rgb(24 32 80/.32))}
+.uf-path.selecionada{fill:var(--red-600)!important; stroke-width:3; filter:drop-shadow(0 6px 14px rgb(200 32 47/.35))}
 .uf-sigla{fill:#fff; font-size:24px; font-weight:700; font-family:var(--font-sans); pointer-events:none; user-select:none; opacity:.82; transition:font-size .2s var(--ease), opacity .2s var(--ease)}
 .uf-sigla.foco{font-size:34px; opacity:1}
 .mapa-tooltip{position:absolute; z-index:10; left:0; top:0; transform:translate(-50%,-100%) scale(.96); background:var(--navy-950); padding:.5rem .85rem; border-radius:var(--radius-md); box-shadow:var(--shadow-lg); opacity:0; pointer-events:none; transition:opacity .18s var(--ease), transform .18s var(--ease)}
+
+/* Faixa com transição suave em vez de linha reta de borda — um fio que some
+   nas pontas lê como "editorial"; uma borda sólida de ponta a ponta lê como
+   tabela. Usado nos blocos alternados (Acesso, Agenda, Oração). */
+.soft-band{position:relative}
+.soft-band::before,.soft-band::after{content:"";position:absolute;inset-inline:0;height:1px;background:linear-gradient(90deg, transparent, var(--border-strong) 30%, var(--border-strong) 70%, transparent)}
+.soft-band::before{top:0}
+.soft-band::after{bottom:0}
 </style>
 </head>
 <body>
@@ -143,16 +176,16 @@ header.nav.solido .nav-links a:hover{color:var(--fg); background:var(--bg-muted)
 
 /* Hero */
 .hero{position:relative; min-height:min(88vh,50rem); display:flex; align-items:center; overflow:hidden; background:var(--navy-900); color:#fff}
-.hero-bg{position:absolute; inset:0; background:radial-gradient(120% 90% at 78% 18%, #2e5c99 0%, #232a5c 42%, #182050 72%, #0d1129 100%)}
+.hero-bg{position:absolute; inset:0; background:
+  radial-gradient(60% 50% at 22% 8%, rgb(255 255 255/.05), transparent 60%),
+  radial-gradient(120% 90% at 78% 18%, #2e5c99 0%, #232a5c 42%, #182050 72%, #0d1129 100%)}
 .hero-scrim{position:absolute; inset:0; background:var(--scrim)}
 .hero-torch{position:absolute; right:-1rem; bottom:0; height:34rem; width:auto; color:#fff; opacity:.07}
 @media(min-width:768px){.hero-torch{right:3rem}}
 .hero-inner{position:relative; padding-block:6rem; padding-top:calc(var(--nav-h) + 4rem)}
-.hero-badge{margin-bottom:1.5rem; display:inline-flex; align-items:center; gap:.65rem; border:1px solid rgb(255 255 255/.2); background:rgb(255 255 255/.1); padding:.5rem 1rem; border-radius:99px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:rgb(255 255 255/.9)}
-.hero h1{font-size:2.25rem; color:#fff; max-width:42rem}
-@media(min-width:640px){.hero h1{font-size:3rem}}
-@media(min-width:1024px){.hero h1{font-size:3.5rem}}
-.hero p.lead{margin-top:1.75rem; max-width:36rem; font-size:1.125rem; color:rgb(255 255 255/.85)}
+.hero-badge{margin-bottom:1.5rem; display:inline-flex; align-items:center; gap:.65rem; border:1px solid rgb(255 255 255/.16); background:rgb(255 255 255/.08); backdrop-filter:blur(8px); padding:.55rem 1.1rem; border-radius:99px; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:rgb(255 255 255/.9); box-shadow:0 1px 0 rgb(255 255 255/.06) inset}
+.hero h1{font-size:clamp(2.1rem,1.6rem + 2.2vw,3.5rem); color:#fff; max-width:42rem}
+.hero p.lead{margin-top:1.75rem; max-width:36rem; font-size:1.125rem; line-height:1.7; color:rgb(255 255 255/.85)}
 blockquote.versiculo{margin:2.25rem 0 0; border-left:2px solid var(--red-400); padding-left:1.25rem}
 blockquote.versiculo p{font-family:var(--font-serif); font-style:italic; font-size:1.25rem; color:rgb(255 255 255/.95)}
 blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:rgb(255 255 255/.65); font-style:normal}
@@ -163,7 +196,8 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
 .numeros{border-bottom:1px solid var(--border); background:var(--bg-subtle)}
 .numeros ul{display:grid; grid-template-columns:repeat(2,1fr); list-style:none; margin:0; padding:0}
 @media(min-width:768px){.numeros ul{grid-template-columns:repeat(5,1fr)}}
-.numeros li{padding:2rem .5rem; text-align:center; border-right:1px solid transparent}
+.numeros li{padding:2.25rem .5rem; text-align:center; border-right:1px solid transparent; transition:background-color .25s var(--ease)}
+.numeros li:hover{background:color-mix(in srgb, var(--primary) 4%, transparent)}
 @media(min-width:768px){.numeros li:not(:last-child){border-right:1px solid var(--border)}}
 .numeros .valor{display:block; font-family:var(--font-serif); font-size:2.25rem; font-weight:700; color:var(--primary)}
 .numeros .rotulo{display:block; margin-top:.25rem; font-size:.875rem; font-weight:600}
@@ -607,7 +641,7 @@ function secaoSobre(){
     <div class="container" style="display:grid;gap:3.5rem;align-items:center" id="sobreGrid">
       <div class="reveal">
         <p class="badge badge-primario" style="margin-bottom:.75rem">Quem somos</p>
-        <h2 class="rule" style="font-size:1.75rem">Uma denominação nacional, enraizada no Evangelho</h2>
+        <h2 class="rule" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem)">Uma denominação nacional, enraizada no Evangelho</h2>
         <p style="margin-top:1.5rem;color:var(--fg-muted);line-height:1.7">A Missão Evangélica Pentecostal do Brasil nasceu em 1939, em Manaus, do trabalho do casal missionário Harland e Hazel Graham. Organizou-se formalmente em 1965 e hoje mantém sua sede nacional em Natal, no Rio Grande do Norte. De um salão alugado no bairro do Alecrim, a obra se estendeu a 21 estados, 16 capitais e mais de 130 municípios — e alcançou quatro continentes por meio de seus missionários e parceiros.</p>
         <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.75rem">
           <a href="#localizador" class="btn btn-primary">Encontre uma igreja ${ICONES.arrow}</a>
@@ -632,9 +666,9 @@ function secaoAcesso(){
     {icone:'play',titulo:'TV MEPB',texto:'Mensagens, séries, podcasts e transmissões ao vivo.',href:'#missoes',toast:'No protótipo completo, este card abre a página /tv.'},
     {icone:'book',titulo:'Biblioteca',texto:'Estatuto, regimento, manuais e materiais oficiais.',href:'#oracao',toast:'No protótipo completo, este card abre a página /biblioteca.'},
   ];
-  return `<section class="section-y" style="background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  return `<section class="section-y soft-band" style="background:var(--bg-subtle)">
     <div class="container">
-      <div class="reveal" style="text-align:center"><p class="badge badge-primario">Comece por aqui</p><h2 class="rule rule-center" style="font-size:1.75rem;margin-top:.75rem">O que você procura hoje?</h2></div>
+      <div class="reveal" style="text-align:center"><p class="badge badge-primario">Comece por aqui</p><h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">O que você procura hoje?</h2></div>
       <ul style="list-style:none;margin:3rem 0 0;padding:0;display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))">
         ${itens.map(function(it,i){ return `<li class="reveal" style="transition-delay:${i*70}ms">
           <a href="${it.href}" class="card hoverable" ${it.toast?`data-toast="${it.toast}"`:''} style="display:block;height:100%">
@@ -663,7 +697,7 @@ function secaoNoticias(){
   return `<section class="section-y" id="noticias">
     <div class="container">
       <div class="reveal" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:end;justify-content:space-between">
-        <div><p class="badge badge-primario">Comunicação</p><h2 class="rule" style="font-size:1.75rem;margin-top:.75rem">Notícias da denominação</h2></div>
+        <div><p class="badge badge-primario">Comunicação</p><h2 class="rule" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Notícias da denominação</h2></div>
       </div>
       <div id="noticiasGrid" class="reveal" style="margin-top:3rem;display:grid;gap:1.5rem">
         <article class="card hoverable">
@@ -696,15 +730,15 @@ const EVENTOS = [
   {dia:'11',mes:'SET',ano:'2026',titulo:'Encontro Nacional de Mulheres',tipo:'Congresso',local:'Igreja MEPB de Recife, PE',inscr:true},
 ];
 function secaoAgenda(){
-  return `<section class="section-y" id="agenda" style="background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  return `<section class="section-y soft-band" id="agenda" style="background:var(--bg-subtle)">
     <div class="container">
-      <div class="reveal"><p class="badge badge-azul">Agenda nacional</p><h2 class="rule" style="font-size:1.75rem;margin-top:.75rem">Próximos eventos</h2>
+      <div class="reveal"><p class="badge badge-azul">Agenda nacional</p><h2 class="rule" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Próximos eventos</h2>
       <p style="margin-top:.75rem;color:var(--fg-muted);max-width:38rem">Congressos, convenções e encontros oficiais da MEPB em todo o país.</p></div>
       <ul style="list-style:none;margin:3rem 0 0;padding:0;display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr))">
         ${EVENTOS.map(function(e,i){ return `<li class="reveal" style="transition-delay:${i*90}ms">
           <div class="card hoverable" style="display:flex;overflow:hidden">
             <div style="width:5.5rem;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.1rem;background:var(--navy-900);color:#fff;padding:1rem 0">
-              <span data-numeric style="font-family:var(--font-serif);font-size:1.75rem;font-weight:700;line-height:1">${e.dia}</span>
+              <span data-numeric style="font-family:var(--font-serif);font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);font-weight:700;line-height:1">${e.dia}</span>
               <span style="font-size:.6875rem;font-weight:700;letter-spacing:.08em;color:rgb(255 255 255/.75)">${e.mes}</span>
             </div>
             <div style="padding:1.1rem;min-width:0">
@@ -725,7 +759,7 @@ function secaoMissoes(){
     <div class="container" style="position:relative;display:grid;gap:3rem;align-items:center" id="missoesGrid">
       <div class="reveal">
         <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--red-400)">Campo missionário</p>
-        <h2 style="font-size:1.75rem;color:#fff;margin-top:.5rem">Do Rio Negro aos confins da terra</h2>
+        <h2 style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);color:#fff;margin-top:.5rem">Do Rio Negro aos confins da terra</h2>
         <span style="display:block;height:3px;width:2.75rem;margin-top:1rem;border-radius:99px;background:var(--red-400)"></span>
         <p style="margin-top:1.5rem;color:rgb(255 255 255/.8);max-width:34rem;line-height:1.7">Missões não é um departamento entre outros — é a razão de existirmos como Missão desde 1939. Hoje sustentamos obreiros em quatro continentes, além do trabalho fluvial no Amazonas.</p>
         <ul style="list-style:none;margin:2.25rem 0 0;padding-top:1.75rem;border-top:1px solid rgb(255 255 255/.15);display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem">
@@ -762,7 +796,7 @@ const DEPARTAMENTOS = [
 function secaoDepartamentos(){
   return `<section class="section-y" id="departamentos">
     <div class="container">
-      <div class="reveal" style="text-align:center"><p class="badge badge-primario">Departamentos</p><h2 class="rule rule-center" style="font-size:1.75rem;margin-top:.75rem">Um lugar para cada idade e cada chamado</h2></div>
+      <div class="reveal" style="text-align:center"><p class="badge badge-primario">Departamentos</p><h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Um lugar para cada idade e cada chamado</h2></div>
       <ul style="list-style:none;margin:3rem 0 0;padding:0;display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))">
         ${DEPARTAMENTOS.map(function(d,i){ return `<li class="reveal" style="transition-delay:${(i%3)*70}ms">
           <div class="card hoverable" style="height:100%">
@@ -813,7 +847,7 @@ function secaoLocalizador(){
     <div class="container">
       <div class="reveal" style="text-align:center;max-width:40rem;margin-inline:auto">
         <p class="badge badge-primario">Localizador</p>
-        <h2 class="rule rule-center" style="font-size:1.75rem;margin-top:.75rem">Encontre uma Igreja</h2>
+        <h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Encontre uma Igreja</h2>
         <p style="margin-top:.75rem;color:var(--fg-muted)">Busque pelo nome, pela cidade ou selecione o estado no mapa.</p>
       </div>
 
@@ -861,11 +895,11 @@ function secaoLocalizador(){
 
 /* ------------------------------------------------------------------ Oração */
 function secaoOracao(){
-  return `<section class="section-y" id="oracao" style="background:var(--bg-subtle);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  return `<section class="section-y soft-band" id="oracao" style="background:var(--bg-subtle)">
     <div class="container" style="max-width:44rem">
       <div class="reveal" style="text-align:center">
         <p class="badge badge-primario">Pedido de oração</p>
-        <h2 class="rule rule-center" style="font-size:1.75rem;margin-top:.75rem">Você não precisa passar por isso sozinho</h2>
+        <h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Você não precisa passar por isso sozinho</h2>
         <p style="margin-top:.75rem;color:var(--fg-muted)">Envie seu pedido — ele será levado a Deus pela nossa equipe de intercessão.</p>
       </div>
       <div id="cardOracao" class="reveal card" style="margin-top:2.5rem"></div>
@@ -908,7 +942,7 @@ function secaoConvite(){
     <div id="congConvite" aria-hidden="true" style="position:absolute;inset-inline:0;bottom:0;opacity:.13;pointer-events:none"></div>
     <div class="container" style="position:relative;text-align:center;max-width:42rem">
       <div class="reveal">
-        <h2 style="font-size:1.75rem">Você é bem-vindo, exatamente como está</h2>
+        <h2 style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem)">Você é bem-vindo, exatamente como está</h2>
         <p style="margin-top:1.25rem;font-size:1.0625rem;color:var(--fg-muted);line-height:1.7">Se você nunca entrou em uma igreja, se está voltando depois de muito tempo, ou se apenas precisa de alguém para orar com você — há um lugar preparado.</p>
         <div style="margin-top:2.25rem;display:flex;justify-content:center;flex-wrap:wrap;gap:.75rem">
           <a href="#oracao" class="btn btn-primary btn-lg">Peça uma oração</a>

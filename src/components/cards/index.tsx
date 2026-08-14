@@ -243,6 +243,27 @@ export function CardMidia({ midia }: { midia: Midia }) {
   );
 }
 
+/** Cartão compacto para a fila "A seguir" da página de reprodução. */
+export function CardMidiaCompacta({ midia }: { midia: Midia }) {
+  return (
+    <Card as="article" href={`/tv/${midia.slug}`} className="flex gap-3 p-2.5">
+      <div className="relative w-36 shrink-0 sm:w-40">
+        <ImagemDemo imagem={midia.capa} proporcao="16/9" />
+        <span className="absolute bottom-1.5 right-1.5 rounded bg-[var(--mepb-navy-950)]/85 px-1.5 py-0.5 text-[0.6875rem] font-semibold text-white">
+          {midia.duracao}
+        </span>
+      </div>
+      <div className="min-w-0 flex-1 py-0.5">
+        <h3 className="clamp-2 text-sm font-semibold leading-snug transition-colors group-hover:text-accent">
+          {midia.titulo}
+        </h3>
+        <p className="mt-1.5 truncate text-xs text-fg-muted">{midia.preletor}</p>
+        <p className="mt-0.5 text-xs text-fg-subtle">{midia.tipo}</p>
+      </div>
+    </Card>
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 /* Missionário                                                                 */
 /* -------------------------------------------------------------------------- */

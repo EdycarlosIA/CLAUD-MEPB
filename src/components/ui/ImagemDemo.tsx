@@ -38,6 +38,51 @@ const PALETAS = [
   ["#0d1129", "#343a6c"],
 ];
 
+/**
+ * Só o SVG do gradiente determinístico, sem moldura nem proporção fixa —
+ * para usos que precisam preencher um contêiner próprio (ex.: hero full-bleed).
+ */
+export function FundoDemo({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const semente = hash(src);
+  const [inicio, fim] = PALETAS[semente % PALETAS.length];
+  const id = `grad-${semente.toString(36)}`;
+  const rotacao = semente % 40;
+
+  return (
+    <svg
+      viewBox="0 0 320 180"
+      preserveAspectRatio="xMidYMid slice"
+      className={cn("h-full w-full", className)}
+      role="img"
+      aria-label={alt}
+    >
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="1" gradientTransform={`rotate(${rotacao} 0.5 0.5)`}>
+          <stop offset="0%" stopColor={inicio} />
+          <stop offset="100%" stopColor={fim} />
+        </linearGradient>
+      </defs>
+
+      <rect width="320" height="180" fill={`url(#${id})`} />
+
+      {/* Arcos concêntricos — textura discreta, variando com a semente */}
+      <g fill="none" stroke="#fff" strokeOpacity="0.09" strokeWidth="1">
+        {[40, 70, 100, 130, 160].map((r) => (
+          <circle key={r} cx={40 + (semente % 240)} cy={30 + (semente % 120)} r={r} />
+        ))}
+      </g>
+
+      {/* Silhueta da tocha, marca d'água do protótipo */}
+      <g transform="translate(252 34) scale(0.34)" fill="#fff" fillOpacity="0.13">
+        <path d="M60 6c16 20 25 36 25 50.5C85 73 74 85 60 85S35 73 35 56.5C35 42 44 26 60 6Z" />
+        <path d="M42 88h36l-5 14H47l-5-14Z" />
+        <path d="M52 102h16v98H52z" />
+        <path d="M44 200h32v12H44z" />
+      </g>
+    </svg>
+  );
+}
+
 export function ImagemDemo({
   imagem,
   className,
@@ -51,48 +96,13 @@ export function ImagemDemo({
   /** Exibe a legenda abaixo da imagem, quando o conteúdo tiver uma. */
   legenda?: boolean;
 }) {
-  const semente = hash(imagem.src);
-  const [inicio, fim] = PALETAS[semente % PALETAS.length];
-  const id = `grad-${semente.toString(36)}`;
-  const rotacao = semente % 40;
-
   return (
     <figure className={cn("m-0", className)}>
       <div
         className="relative overflow-hidden rounded-[var(--radius-lg)] bg-surface-sunken"
         style={{ aspectRatio: proporcao.replace("/", " / ") }}
       >
-        <svg
-          viewBox="0 0 320 180"
-          preserveAspectRatio="xMidYMid slice"
-          className="absolute inset-0 h-full w-full"
-          role="img"
-          aria-label={imagem.alt}
-        >
-          <defs>
-            <linearGradient id={id} x1="0" y1="0" x2="1" y2="1" gradientTransform={`rotate(${rotacao} 0.5 0.5)`}>
-              <stop offset="0%" stopColor={inicio} />
-              <stop offset="100%" stopColor={fim} />
-            </linearGradient>
-          </defs>
-
-          <rect width="320" height="180" fill={`url(#${id})`} />
-
-          {/* Arcos concêntricos — textura discreta, variando com a semente */}
-          <g fill="none" stroke="#fff" strokeOpacity="0.09" strokeWidth="1">
-            {[40, 70, 100, 130, 160].map((r) => (
-              <circle key={r} cx={40 + (semente % 240)} cy={30 + (semente % 120)} r={r} />
-            ))}
-          </g>
-
-          {/* Silhueta da tocha, marca d'água do protótipo */}
-          <g transform="translate(252 34) scale(0.34)" fill="#fff" fillOpacity="0.13">
-            <path d="M60 6c16 20 25 36 25 50.5C85 73 74 85 60 85S35 73 35 56.5C35 42 44 26 60 6Z" />
-            <path d="M42 88h36l-5 14H47l-5-14Z" />
-            <path d="M52 102h16v98H52z" />
-            <path d="M44 200h32v12H44z" />
-          </g>
-        </svg>
+        <FundoDemo src={imagem.src} alt={imagem.alt} className="absolute inset-0" />
       </div>
 
       {legenda && imagem.legenda && (

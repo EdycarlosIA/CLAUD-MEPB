@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { PageHero } from "@/components/layout/Pagina";
+import { HeroTv } from "@/components/tv/HeroTv";
 import { ListaMidias } from "@/components/tv/ListaMidias";
-import { MIDIAS, SERIES } from "@/content/midia";
+import { MIDIAS } from "@/content/midia";
 
 export const metadata: Metadata = {
   title: "TV MEPB",
@@ -9,31 +9,15 @@ export const metadata: Metadata = {
     "Mensagens, séries, podcasts, lives e documentários da Missão Evangélica Pentecostal do Brasil.",
 };
 
+/** Item de destaque do hero: o mais recente entre os marcados como `destaque`. */
+const EMDESTAQUE = [...MIDIAS]
+  .filter((m) => m.destaque)
+  .sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime())[0];
+
 export default function TvPage() {
   return (
     <>
-      <PageHero
-        compacto
-        titulo="TV MEPB"
-        subtitulo="Mensagens, séries de estudo, podcasts e transmissões ao vivo. Conteúdo para a semana inteira, não só para o domingo."
-        trilha={[{ rotulo: "TV MEPB" }]}
-      >
-        <ul className="flex flex-wrap gap-x-12 gap-y-4">
-          <li>
-            <span data-numeric className="block font-serif text-2xl font-semibold text-white">
-              {MIDIAS.length}
-            </span>
-            <span className="text-sm text-white/70">conteúdos publicados</span>
-          </li>
-          <li>
-            <span data-numeric className="block font-serif text-2xl font-semibold text-white">
-              {SERIES.length}
-            </span>
-            <span className="text-sm text-white/70">séries em andamento</span>
-          </li>
-        </ul>
-      </PageHero>
-
+      <HeroTv midia={EMDESTAQUE} />
       <ListaMidias />
     </>
   );

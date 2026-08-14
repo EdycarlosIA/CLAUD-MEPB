@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowRight, Clock, Play, User } from "lucide-react";
-import { Trilha, TituloSecao } from "@/components/layout/Pagina";
+import { Clock, Play, User } from "lucide-react";
+import { Trilha } from "@/components/layout/Pagina";
 import { Selo } from "@/components/ui/Selo";
 import { BotaoLink } from "@/components/ui/Botao";
-import { CardMidia } from "@/components/cards";
+import { CardMidiaCompacta } from "@/components/cards";
 import { MIDIAS, getMidia } from "@/content/midia";
 import { SITE } from "@/content/site";
 import { formatarData } from "@/lib/utils";
@@ -38,7 +38,7 @@ export default async function MidiaPage({ params }: { params: Promise<{ slug: st
   const relacionados = [
     ...MIDIAS.filter((m) => m.serie && m.serie === midia.serie && m.slug !== midia.slug),
     ...MIDIAS.filter((m) => m.serie !== midia.serie && m.slug !== midia.slug),
-  ].slice(0, 3);
+  ].slice(0, 6);
 
   return (
     <>
@@ -129,28 +129,23 @@ export default async function MidiaPage({ params }: { params: Promise<{ slug: st
                 Ver próximas transmissões
               </BotaoLink>
             </div>
+
+            {relacionados.length > 0 && (
+              <div className="mt-8">
+                <h2 className="text-sm font-bold uppercase tracking-wider text-fg-muted">
+                  {midia.serie ? "Continue a série" : "A seguir"}
+                </h2>
+                <ul className="mt-4 space-y-3">
+                  {relacionados.map((outro) => (
+                    <li key={outro.slug}>
+                      <CardMidiaCompacta midia={outro} />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </aside>
         </div>
-
-        <section className="mt-20 border-t border-line pt-16">
-          <TituloSecao
-            titulo={midia.serie ? "Continue a série" : "Você também pode gostar"}
-            acao={
-              <BotaoLink href="/tv" variante="contorno">
-                Todo o catálogo
-                <ArrowRight aria-hidden="true" className="h-4 w-4" />
-              </BotaoLink>
-            }
-          />
-
-          <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {relacionados.map((outro) => (
-              <li key={outro.slug}>
-                <CardMidia midia={outro} />
-              </li>
-            ))}
-          </ul>
-        </section>
       </div>
     </>
   );

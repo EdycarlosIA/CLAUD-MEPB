@@ -182,6 +182,7 @@ export function CampoCheckbox({
   id,
   rotulo,
   erro,
+  obrigatorio,
   className,
   ...props
 }: Omit<Base, "ajuda"> & Omit<ComponentProps<"input">, "id" | "className" | "type">) {
@@ -193,11 +194,13 @@ export function CampoCheckbox({
           type="checkbox"
           aria-invalid={erro ? true : undefined}
           aria-describedby={erro ? `${id}-erro` : undefined}
+          aria-required={obrigatorio || undefined}
           className="mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-[var(--field-border)] accent-[var(--sem-primary)]"
           {...props}
         />
         <label htmlFor={id} className="cursor-pointer text-sm leading-relaxed text-fg-muted">
           {rotulo}
+          {obrigatorio && <span className="sr-only"> (obrigatório)</span>}
         </label>
       </div>
       <Auxiliar id={id} erro={erro} />

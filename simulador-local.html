@@ -259,7 +259,7 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
     <svg class="hero-torch" id="heroTorch" aria-hidden="true" focusable="false"></svg>
     <div class="container hero-inner">
       <div style="max-width:44rem">
-        <p class="hero-badge"><span style="width:.375rem;height:.375rem;border-radius:99px;background:var(--red-400)"></span>Desde 1939 · Presente em 21 estados</p>
+        <p class="hero-badge"><span style="width:.375rem;height:.375rem;border-radius:99px;background:var(--red-400)"></span>Desde 1939 · Presente em 22 estados</p>
         <h1>Uma missão que atravessa gerações e fronteiras</h1>
         <p class="lead">Portal oficial da Missão Evangélica Pentecostal do Brasil. Desde 1939 anunciando o Evangelho de Cristo em todo o território nacional e em quatro continentes.</p>
         <blockquote class="versiculo">
@@ -350,7 +350,7 @@ const IGREJAS = [
   // Endereço da Sede Nacional conferido no site oficial (Rua Itaporanga, 184
   // — Cidade da Esperança). O nome do pastor local segue fictício, como o
   // restante do cadastro de demonstração.
-  {nome:"Templo Central — Sede Nacional",tipo:"Sede Nacional",cidade:"Natal",uf:"RN",bairro:"Cidade da Esperança",endereco:"Rua Itaporanga, 184",pastor:"Pr. Josué Andrade Lima",desde:2016,culto:"Dom 09h e 18h",fundacao:1943},
+  {nome:"Templo Central — Sede Nacional",tipo:"Sede Nacional",cidade:"Natal",uf:"RN",bairro:"Cidade da Esperança",endereco:"Rua Itaporanga, 184",pastor:"Pr. José Azemar",desde:2016,culto:"Dom 09h e 18h",fundacao:1943},
   {nome:"Primeira Igreja MEPB de Manaus",tipo:"Sede Estadual",cidade:"Manaus",uf:"AM",bairro:"Centro",endereco:"Rua Ramos Ferreira, 890",pastor:"Pr. Elias Ferreira do Nascimento",desde:2011,culto:"Dom 09h e 18h30",fundacao:1939},
   {nome:"Igreja MEPB Central de Fortaleza",tipo:"Sede Estadual",cidade:"Fortaleza",uf:"CE",bairro:"Aldeota",endereco:"Av. Santos Dumont, 2200",pastor:"Pr. Marcos Vinícius Teixeira",desde:2018,culto:"Dom 09h e 18h30",fundacao:1958},
   {nome:"Igreja MEPB de Recife",tipo:"Sede Estadual",cidade:"Recife",uf:"PE",bairro:"Boa Vista",endereco:"Rua do Hospício, 415",pastor:"Pr. Antônio Carlos Beserra",desde:2009,culto:"Dom 09h e 18h30",fundacao:1951},
@@ -743,7 +743,7 @@ function secaoAcesso(){
 
 /* --------------------------------------------------------------- Notícias */
 const NOTICIAS = [
-  {t:'Convenção Nacional 2026 reunirá lideranças de 21 estados em Natal',r:'Encontro acontece entre 14 e 17 de outubro no Templo Central e marcará a eleição do Supremo Concílio para o próximo quadriênio.',cat:'Institucional',data:'18 jul 2026'},
+  {t:'Convenção Nacional 2026 reunirá lideranças de 22 estados em Natal',r:'Encontro acontece entre 14 e 17 de outubro no Templo Central e marcará a eleição do Supremo Concílio para o próximo quadriênio.',cat:'Institucional',data:'18 jul 2026'},
   {t:'Barco Missionária Ethel Matson passa a atender mais seis comunidades',r:'Ampliação do trabalho fluvial no Rio Negro leva assistência espiritual e atendimento básico de saúde a famílias ribeirinhas.',cat:'Missões',data:'09 jul 2026'},
   {t:'Seminário Teológico Harland Graham abre inscrições para 2027',r:'Instituição de Natal oferece cursos de Bacharel em Teologia e formação livre para obreiros.',cat:'Educação',data:'28 jun 2026'},
   {t:'Congresso Nacional de Jovens 2026 tem tema definido',r:'Com o tema "Firmes no Propósito", o encontro acontece em Fortaleza e espera receber mais de dois mil jovens.',cat:'Departamentos',data:'15 jun 2026'},
@@ -911,7 +911,7 @@ function secaoLocalizador(){
         <div id="filtrosBar" style="display:flex;gap:1rem;align-items:flex-end;flex-wrap:wrap">
           <div style="flex:1;min-width:14rem">
             <label class="lbl" for="buscaIgreja">Buscar por nome, cidade ou bairro</label>
-            <input id="buscaIgreja" type="search" class="field" placeholder="Ex.: Natal, Tirol, Templo Central…">
+            <input id="buscaIgreja" type="search" class="field" placeholder="Ex.: Natal, Cidade da Esperança, Templo Central…">
           </div>
           <div>
             <label class="lbl" for="filtroUf">Estado</label>
@@ -1087,6 +1087,9 @@ function rodapeHTML(){
 
 /* ---------------------------------------------------------------- Tema */
 (function initTema(){
+  // Se um host (ex.: visualizador de artefato) já definiu data-theme no
+  // <html>, respeita essa escolha em vez de sobrescrevê-la.
+  if (document.documentElement.hasAttribute('data-theme')) return;
   let salvo = null;
   try { salvo = localStorage.getItem('mepb-tema'); } catch(e){}
   const prefereEscuro = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;

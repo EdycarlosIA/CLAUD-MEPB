@@ -124,6 +124,12 @@ label.lbl{display:block; margin-bottom:.55rem; font-size:.8125rem; font-weight:6
 .uf-path.selecionada{fill:var(--red-600)!important; stroke-width:3; filter:drop-shadow(0 6px 14px rgb(200 32 47/.35))}
 .uf-sigla{fill:#fff; font-size:24px; font-weight:700; font-family:var(--font-sans); pointer-events:none; user-select:none; opacity:.82; transition:font-size .2s var(--ease), opacity .2s var(--ease)}
 .uf-sigla.foco{font-size:34px; opacity:1}
+/* Padrão "Leia mais" observado no site oficial — texto longo some por padrão,
+   revelado por um botão de texto simples com seta que gira ao abrir. */
+.leia-mais-btn{display:inline-flex; align-items:center; gap:.4rem; margin-top:.85rem; padding:0; background:none; border:none; color:var(--accent); font-size:.875rem; font-weight:600; cursor:pointer}
+.leia-mais-btn svg{transition:transform .25s var(--ease)}
+.leia-mais-btn.aberto svg{transform:rotate(180deg)}
+
 .mapa-tooltip{position:absolute; z-index:10; left:0; top:0; transform:translate(-50%,-100%) scale(.96); background:var(--navy-950); padding:.5rem .85rem; border-radius:var(--radius-md); box-shadow:var(--shadow-lg); opacity:0; pointer-events:none; transition:opacity .18s var(--ease), transform .18s var(--ease)}
 
 /* Faixa com transição suave em vez de linha reta de borda — um fio que some
@@ -214,6 +220,7 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
       <li><a href="#noticias">Notícias</a></li>
       <li><a href="#agenda">Agenda</a></li>
       <li><a href="#departamentos">Departamentos</a></li>
+      <li><a href="#doacoes">Doações</a></li>
       <li><a href="#oracao">Oração</a></li>
     </ul>
     <div class="nav-actions">
@@ -237,6 +244,7 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
     <a href="#noticias">Notícias</a>
     <a href="#agenda">Agenda</a>
     <a href="#departamentos">Departamentos</a>
+    <a href="#doacoes">Doações</a>
     <a href="#oracao">Oração</a>
   </nav>
   <div class="drawer-foot">
@@ -279,6 +287,7 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
   <div id="secaoMissoes"></div>
   <div id="secaoDepartamentos"></div>
   <div id="secaoLocalizador"></div>
+  <div id="secaoDoacoes"></div>
   <div id="secaoOracao"></div>
   <div id="secaoConvite"></div>
 </main>
@@ -338,7 +347,10 @@ const UFS_ATIVAS = ["RN","AM","CE","PE","PA","SP","RJ","BA","PB","PI","MA","AL",
 
 /* Cadastro de igrejas de demonstração — mesmo conjunto do protótipo em Next.js. */
 const IGREJAS = [
-  {nome:"Templo Central — Sede Nacional",tipo:"Sede Nacional",cidade:"Natal",uf:"RN",bairro:"Tirol",endereco:"Av. Prudente de Morais, 1450",pastor:"Pr. Josué Andrade Lima",desde:2016,culto:"Dom 09h e 18h",fundacao:1943},
+  // Endereço da Sede Nacional conferido no site oficial (Rua Itaporanga, 184
+  // — Cidade da Esperança). O nome do pastor local segue fictício, como o
+  // restante do cadastro de demonstração.
+  {nome:"Templo Central — Sede Nacional",tipo:"Sede Nacional",cidade:"Natal",uf:"RN",bairro:"Cidade da Esperança",endereco:"Rua Itaporanga, 184",pastor:"Pr. Josué Andrade Lima",desde:2016,culto:"Dom 09h e 18h",fundacao:1943},
   {nome:"Primeira Igreja MEPB de Manaus",tipo:"Sede Estadual",cidade:"Manaus",uf:"AM",bairro:"Centro",endereco:"Rua Ramos Ferreira, 890",pastor:"Pr. Elias Ferreira do Nascimento",desde:2011,culto:"Dom 09h e 18h30",fundacao:1939},
   {nome:"Igreja MEPB Central de Fortaleza",tipo:"Sede Estadual",cidade:"Fortaleza",uf:"CE",bairro:"Aldeota",endereco:"Av. Santos Dumont, 2200",pastor:"Pr. Marcos Vinícius Teixeira",desde:2018,culto:"Dom 09h e 18h30",fundacao:1958},
   {nome:"Igreja MEPB de Recife",tipo:"Sede Estadual",cidade:"Recife",uf:"PE",bairro:"Boa Vista",endereco:"Rua do Hospício, 415",pastor:"Pr. Antônio Carlos Beserra",desde:2009,culto:"Dom 09h e 18h30",fundacao:1951},
@@ -607,7 +619,21 @@ const ICONES = {
   arrow: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M5 12h14M13 6l6 6-6 6"/></svg>',
   heart: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.8-10-9.5C.5 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2C10.8 4.7 12.5 3.7 14.5 4 18 4.5 19.5 8 20 11.5 17.5 16.2 12 21 12 21Z"/></svg>',
   globe: '<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 6 4 9s-1.5 6.5-4 9c-2.5-2.5-4-6-4-9s1.5-6.5 4-9Z"/></svg>',
+  chevronDown: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M6 9l6 6 6-6"/></svg>',
+  instagram: '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>',
+  facebook: '<svg class="icon" viewBox="0 0 24 24"><path d="M14 21v-8h2.6l.4-3.2H14V7.7c0-.9.3-1.6 1.7-1.6H17V3.2C16.6 3.1 15.6 3 14.4 3 12 3 10.3 4.5 10.3 7.3v2.5H8V13h2.3v8h3.7Z" fill="currentColor" stroke="none"/></svg>',
+  gift: '<svg class="icon" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="4" rx="1"/><rect x="5" y="13" width="14" height="8" rx="1"/><path d="M12 9v12M12 9C10 5 6 6 6 8.5S9 9 12 9ZM12 9c2-4 6-3 6-.5S15 9 12 9Z"/></svg>',
 };
+
+/** Alterna o bloco "Leia mais" — mesmo padrão de acordeão usado no site oficial. */
+function alternarLeiaMais(btn){
+  const alvo = document.getElementById(btn.dataset.alvo);
+  const aberto = !alvo.hidden;
+  alvo.hidden = aberto;
+  btn.setAttribute('aria-expanded', String(!aberto));
+  btn.classList.toggle('aberto', !aberto);
+  btn.innerHTML = (aberto ? 'Leia mais ' : 'Ler menos ') + ICONES.chevronDown;
+}
 
 function iniciais(nome){
   const partes = nome.replace(/^(Pr\.|Pra\.|Missionário)\s+/, '').split(' ').filter(function(p){ return p.length>2; });
@@ -636,13 +662,30 @@ function fig169(semente, alt){
 }
 
 /* ---------------------------------------------------------------- Sobre */
+/*
+  Texto de missão e o parágrafo estendido abaixo são a redação oficial da
+  MEPB, tal como publicada em mepb.org.br (conferida pelos prints enviados
+  pelo usuário) — substituem o texto genérico que eu havia redigido antes de
+  ter acesso ao site real.
+*/
+const MISSAO_OFICIAL = "Nossa missão é trazer pessoas a JESUS, edificar os cristãos através do estudo da palavra e juntos adorarmos a Deus de forma genuína no templo e na vida cotidiana, servindo a Cristo na comunidade local e no mundo. Acreditamos que através do Amor, Fé e Serviço, seremos referência de igreja evangelizadora, engajada, acolhedora, consagrada e que por meio da capacitação de discípulos faremos diferença na vida das pessoas.";
+const MISSAO_ESTENDIDA = "Começamos com uma família que disse sim ao que Deus estava propondo. Um sonho que transformaria muitas casas. Uma construção que alcançaria outras famílias. Hoje, espalhados pelas cidades, estados, países e mundo, louvamos a Deus por esta casa que segue em amor, em garra e em graça. Somos Família. Somos casa. Somos Igreja. Somos de Deus, pra glória de Deus.";
+
 function secaoSobre(){
   return `<section class="section-y" id="sobre">
     <div class="container" style="display:grid;gap:3.5rem;align-items:center" id="sobreGrid">
       <div class="reveal">
         <p class="badge badge-primario" style="margin-bottom:.75rem">Quem somos</p>
         <h2 class="rule" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem)">Uma denominação nacional, enraizada no Evangelho</h2>
-        <p style="margin-top:1.5rem;color:var(--fg-muted);line-height:1.7">A Missão Evangélica Pentecostal do Brasil nasceu em 1939, em Manaus, do trabalho do casal missionário Harland e Hazel Graham. Organizou-se formalmente em 1965 e hoje mantém sua sede nacional em Natal, no Rio Grande do Norte. De um salão alugado no bairro do Alecrim, a obra se estendeu a 21 estados, 16 capitais e mais de 130 municípios — e alcançou quatro continentes por meio de seus missionários e parceiros.</p>
+        <p style="margin-top:1.5rem;color:var(--fg-muted);line-height:1.7">${MISSAO_OFICIAL}</p>
+
+        <div id="leiaMaisSobre" hidden style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">
+          <p style="color:var(--fg-muted);line-height:1.7">${MISSAO_ESTENDIDA}</p>
+        </div>
+        <button type="button" class="leia-mais-btn" data-alvo="leiaMaisSobre" onclick="alternarLeiaMais(this)" aria-expanded="false" aria-controls="leiaMaisSobre">
+          Leia mais ${ICONES.chevronDown}
+        </button>
+
         <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:.75rem">
           <a href="#localizador" class="btn btn-primary">Encontre uma igreja ${ICONES.arrow}</a>
           <a href="#missoes" class="btn btn-outline">Nossa missão</a>
@@ -652,6 +695,19 @@ function secaoSobre(){
         <h3 style="text-align:center;font-size:.8125rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-muted);margin-bottom:1.25rem;font-family:var(--font-sans)">Onde estamos</h3>
         <div id="mapaPrevia"></div>
         <p id="mapaPreviaInfo" style="margin-top:1rem;text-align:center;font-size:.875rem;color:var(--fg-muted);min-height:1.3rem">Toque em um estado para ver a presença da MEPB.</p>
+      </div>
+    </div>
+
+    <div class="container" style="margin-top:3.5rem">
+      <div class="reveal card" style="max-width:40rem;margin-inline:auto">
+        <div class="card-body" style="display:flex;gap:1.25rem;align-items:center">
+          <span style="flex-shrink:0;display:inline-flex;width:3.5rem;height:3.5rem;align-items:center;justify-content:center;border-radius:99px;background:var(--navy-900);color:#fff;font-family:var(--font-serif);font-weight:700;font-size:1.1rem">JA</span>
+          <div>
+            <p style="font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--primary)">Presidente da Diretoria Nacional</p>
+            <h3 style="margin-top:.3rem;font-size:1.0625rem">Pastor José Azemar</h3>
+            <p style="margin-top:.35rem;font-size:.8125rem;color:var(--fg-subtle)">Foto e biografia oficiais a confirmar com a Secretaria Nacional.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -893,6 +949,34 @@ function secaoLocalizador(){
   <style>#localizadorGrid{grid-template-columns:1fr}@media(min-width:1024px){#localizadorGrid{grid-template-columns:24rem 1fr}}</style>`;
 }
 
+/* ------------------------------------------------------------------ Doações */
+function secaoDoacoes(){
+  return `<section class="section-y" id="doacoes" style="border-top:1px solid var(--border)">
+    <div class="container" style="max-width:56rem">
+      <div class="reveal" style="text-align:center">
+        <p class="badge badge-primario">Participe</p>
+        <h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Sustente a obra da Missão</h2>
+        <p style="margin-top:.75rem;color:var(--fg-muted);max-width:40rem;margin-inline:auto">Dízimos, ofertas e contribuições sustentam o trabalho pastoral, as missões nacionais e transcontinentais e a manutenção das nossas igrejas.</p>
+      </div>
+      <div class="reveal" style="margin-top:2.5rem;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))" id="doacoesGrid">
+        <div class="card" style="padding:2rem">
+          ${ICONES.gift}
+          <h3 style="margin-top:1rem;font-size:1.0625rem">Na sua igreja local</h3>
+          <p style="margin-top:.5rem;font-size:.9375rem;color:var(--fg-muted);line-height:1.6">A forma mais direta de contribuir é junto à tesouraria da sua congregação, que também pode orientar sobre dízimos e ofertas.</p>
+          <a href="#localizador" class="btn btn-outline" style="margin-top:1.25rem">Encontrar minha igreja</a>
+        </div>
+        <div class="card" style="padding:2rem">
+          ${ICONES.globe}
+          <h3 style="margin-top:1rem;font-size:1.0625rem">Pela Sede Nacional</h3>
+          <p style="margin-top:.5rem;font-size:.9375rem;color:var(--fg-muted);line-height:1.6">Para contribuir diretamente com a administração nacional ou com um campo missionário específico, fale com a nossa secretaria.</p>
+          <a href="#rodape-contato" class="btn btn-outline" style="margin-top:1.25rem">Falar com a Sede</a>
+        </div>
+      </div>
+      <p class="reveal" style="margin-top:2rem;text-align:center;font-size:.8125rem;color:var(--fg-subtle)">Por segurança, a MEPB não solicita dados de pagamento por mensagens não oficiais. Confirme sempre os canais de contribuição diretamente com a liderança da sua igreja ou com a Sede Nacional.</p>
+    </div>
+  </section>`;
+}
+
 /* ------------------------------------------------------------------ Oração */
 function secaoOracao(){
   return `<section class="section-y soft-band" id="oracao" style="background:var(--bg-subtle)">
@@ -958,7 +1042,7 @@ function rodapeHTML(){
   const colunas = [
     {t:'Institucional',itens:[['Sobre a MEPB','#sobre'],['Departamentos','#departamentos'],['Missões','#missoes']]},
     {t:'Comunidade',itens:[['Encontre uma Igreja','#localizador'],['Agenda Nacional','#agenda'],['Notícias','#noticias']]},
-    {t:'Participe',itens:[['Pedido de Oração','#oracao'],['Quero Participar','#oracao'],['Contato','#oracao']]},
+    {t:'Participe',itens:[['Pedido de Oração','#oracao'],['Doações','#doacoes'],['Contato','#rodape-contato']]},
   ];
   return `<footer style="position:relative;overflow:hidden;background:var(--navy-900);color:rgb(255 255 255/.78)">
     <div class="container section-y" style="position:relative;display:grid;gap:2.5rem" id="rodapeGrid">
@@ -975,6 +1059,18 @@ function rodapeHTML(){
           ${c.itens.map(function(it){ return `<li><a href="${it[1]}" style="font-size:.875rem">${it[0]}</a></li>`; }).join('')}
         </ul>
       </nav>`; }).join('')}
+      <div id="rodape-contato">
+        <h2 style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#fff;font-family:var(--font-sans)">Sede Nacional</h2>
+        <ul style="list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.65rem;font-size:.875rem">
+          <li>Rua Itaporanga, 184 — Cidade da Esperança<br>Natal/RN — CEP 59070-470</li>
+          <li><a href="tel:+558432054155">+55 (84) 3205-4155</a></li>
+          <li><a href="mailto:mepb@mepb.org.br">mepb@mepb.org.br</a></li>
+        </ul>
+        <div style="display:flex;gap:.625rem;margin-top:1.1rem">
+          <a class="icon-btn" href="https://facebook.com/mepbnacional" aria-label="MEPB no Facebook" style="color:#fff;border-color:rgb(255 255 255/.25)">${ICONES.facebook}</a>
+          <a class="icon-btn" href="https://instagram.com/mepboficial" aria-label="MEPB no Instagram" style="color:#fff;border-color:rgb(255 255 255/.25)">${ICONES.instagram}</a>
+        </div>
+      </div>
     </div>
     <div style="border-top:1px solid rgb(255 255 255/.14)">
       <div class="container" style="padding-block:1.25rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;font-size:.75rem">
@@ -983,7 +1079,7 @@ function rodapeHTML(){
       </div>
     </div>
   </footer>
-  <style>#rodapeGrid{grid-template-columns:1fr}@media(min-width:860px){#rodapeGrid{grid-template-columns:1.4fr 1fr 1fr 1fr}}</style>`;
+  <style>#rodapeGrid{grid-template-columns:1fr}@media(min-width:860px){#rodapeGrid{grid-template-columns:1.2fr 1fr 1fr 1fr 1.1fr}}</style>`;
 }
 /* ==========================================================================
    PARTE 6 — MONTAGEM E INTERAÇÃO
@@ -1034,11 +1130,13 @@ function montarPagina(){
   document.getElementById('heroSobre').innerHTML = 'Conheça a MEPB ' + ICONES.arrow;
   document.getElementById('heroTorch').outerHTML = svgTocha(0.07).replace('<svg ', '<svg class="hero-torch" id="heroTorch" ');
 
+  // Números oficiais conforme divulgados em mepb.org.br (conferidos por print
+  // enviado pelo usuário) — substituem a estimativa usada até então.
   const numeros = [
     {v:'85+',r:'anos de história',d:'desde 1939'},
-    {v:'21',r:'estados',d:'presença nacional'},
+    {v:'22',r:'estados',d:'presença nacional'},
     {v:'16',r:'capitais',d:'em todas as regiões'},
-    {v:'130+',r:'municípios',d:'igrejas e congregações'},
+    {v:'133',r:'municípios',d:'igrejas e congregações'},
     {v:'4',r:'continentes',d:'campo missionário'},
   ];
   document.getElementById('numerosLista').innerHTML = numeros.map(function(n){
@@ -1052,6 +1150,7 @@ function montarPagina(){
   document.getElementById('secaoMissoes').innerHTML = secaoMissoes();
   document.getElementById('secaoDepartamentos').innerHTML = secaoDepartamentos();
   document.getElementById('secaoLocalizador').innerHTML = secaoLocalizador();
+  document.getElementById('secaoDoacoes').innerHTML = secaoDoacoes();
   document.getElementById('secaoOracao').innerHTML = secaoOracao();
   document.getElementById('secaoConvite').innerHTML = secaoConvite();
   document.getElementById('rodape').innerHTML = rodapeHTML();

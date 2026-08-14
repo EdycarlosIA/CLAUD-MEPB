@@ -14,7 +14,7 @@ export const CATEGORIAS_NOTICIA: CategoriaNoticia[] = [
 export const NOTICIAS: Noticia[] = [
   {
     slug: "convencao-nacional-2026-natal",
-    titulo: "Convenção Nacional 2026 reunirá lideranças de 21 estados em Natal",
+    titulo: "Convenção Nacional 2026 reunirá lideranças de 22 estados em Natal",
     resumo:
       "Encontro acontece entre 14 e 17 de outubro no Templo Central e marcará a eleição do Supremo Concílio para o próximo quadriênio.",
     categoria: "Institucional",
@@ -186,7 +186,7 @@ export const NOTICIAS: Noticia[] = [
     slug: "mepb-completa-85-anos",
     titulo: "MEPB celebra 85 anos de história e missão no Brasil",
     resumo:
-      "De um salão alugado em Manaus, em 1939, a denominação chegou a 21 estados e a quatro continentes.",
+      "De um salão alugado em Manaus, em 1939, a denominação chegou a 22 estados e a quatro continentes.",
     categoria: "Institucional",
     data: "2026-03-14",
     autor: "Secretaria de Comunicação",

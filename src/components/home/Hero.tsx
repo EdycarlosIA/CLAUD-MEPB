@@ -57,7 +57,7 @@ export function Hero() {
         <div className="max-w-3xl">
           <p className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[var(--mepb-red-400)]" aria-hidden="true" />
-            Desde {SITE.fundacao} · Presente em 21 estados
+            Desde {SITE.fundacao} · Presente em 22 estados
           </p>
 
           <h1 className="text-balance text-4xl font-semibold leading-[1.1] text-white sm:text-5xl lg:text-6xl">

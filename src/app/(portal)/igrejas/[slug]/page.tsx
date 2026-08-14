@@ -168,9 +168,11 @@ export default async function IgrejaPage({ params }: { params: Promise<{ slug: s
                       Pastor titular
                     </p>
                     <h3 className="mt-1.5 text-xl font-semibold">{igreja.pastor.nome}</h3>
-                    <p className="mt-0.5 text-sm text-fg-muted">
-                      À frente da igreja desde {igreja.pastor.desde}
-                    </p>
+                    {igreja.pastor.desde && (
+                      <p className="mt-0.5 text-sm text-fg-muted">
+                        À frente da igreja desde {igreja.pastor.desde}
+                      </p>
+                    )}
                     <p className="mt-4 leading-relaxed text-fg-muted">{igreja.pastor.bio}</p>
                   </div>
                 </CardCorpo>

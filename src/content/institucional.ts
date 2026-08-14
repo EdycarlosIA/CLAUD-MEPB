@@ -4,13 +4,17 @@ import type { ArtigoFe, MarcoHistorico, Presidente } from "./types";
  * Conteúdo institucional: história, linha do tempo, liderança e declaração de fé.
  *
  * Os marcos históricos referenciam fatos divulgados publicamente pela própria
- * denominação. Nomes de presidentes e membros do concílio são fictícios, criados
- * para o protótipo — devem ser substituídos pelos dados oficiais antes da publicação.
+ * denominação. O texto da missão e o nome do presidente atual (Pr. José Azemar)
+ * vêm do site oficial. Os demais nomes de presidentes e membros do concílio
+ * são fictícios, criados para o protótipo — devem ser substituídos pelos
+ * dados oficiais antes da publicação.
  */
 
 export const MISSAO = {
   missao:
-    "Anunciar o Evangelho de Jesus Cristo a toda criatura, formando discípulos e plantando igrejas comprometidas com a Palavra de Deus, no Brasil e entre as nações.",
+    "Nossa missão é trazer pessoas a Jesus, edificar os cristãos através do estudo da Palavra e juntos adorarmos a Deus de forma genuína no templo e na vida cotidiana, servindo a Cristo na comunidade local e no mundo. Acreditamos que através do amor, fé e serviço, seremos referência de igreja evangelizadora, engajada, acolhedora, consagrada e que, por meio da capacitação de discípulos, faremos diferença na vida das pessoas.",
+  extensa:
+    "Começamos com uma família que disse sim ao que Deus estava propondo. Um sonho que transformaria muitas casas. Uma construção que alcançaria outras famílias. Hoje, espalhados pelas cidades, estados, países e mundo, louvamos a Deus por esta casa que segue em amor, em garra e em graça. Somos família. Somos casa. Somos Igreja. Somos de Deus, pra glória de Deus.",
   visao:
     "Ser uma denominação presente em todo o território nacional e nos campos missionários do mundo, reconhecida pela fidelidade doutrinária, pela integridade e pelo cuidado com as pessoas.",
   valores: [
@@ -146,7 +150,7 @@ export const LINHA_DO_TEMPO: MarcoHistorico[] = [
     ano: "Hoje",
     titulo: "Presença nacional",
     descricao:
-      "A MEPB está presente em 21 estados da federação, 16 capitais e mais de 130 municípios, mantendo seminários teológicos, campos missionários e projetos de assistência social.",
+      "A MEPB está presente em 22 estados da federação, 16 capitais e mais de 133 municípios, mantendo seminários teológicos, campos missionários e projetos de assistência social.",
     destaque: true,
   },
 ];
@@ -190,16 +194,16 @@ export const PRESIDENTES: Presidente[] = [
     nota: "Modernizou a administração e implantou o sistema de registro das igrejas filiadas.",
   },
   {
-    nome: "Pr. Josué Andrade Lima",
-    periodo: "2016 – atual",
+    nome: "Pr. José Azemar",
+    periodo: "Atual",
     origem: "Natal, Rio Grande do Norte",
-    nota: "Preside o Supremo Concílio no quadriênio atual, com ênfase na formação de obreiros e na expansão missionária.",
+    nota: "Preside a Diretoria Nacional no quadriênio atual. Foto e biografia oficiais a confirmar com a Secretaria Nacional.",
   },
 ];
 
 /** Composição do Supremo Concílio — dados fictícios para o protótipo. */
 export const SUPREMO_CONCILIO = [
-  { cargo: "Presidente", nome: "Pr. Josué Andrade Lima", uf: "RN" },
+  { cargo: "Presidente", nome: "Pr. José Azemar", uf: "RN" },
   { cargo: "Vice-Presidente", nome: "Pr. Elias Ferreira do Nascimento", uf: "AM" },
   { cargo: "1º Secretário", nome: "Pr. Marcos Vinícius Teixeira", uf: "CE" },
   { cargo: "2º Secretário", nome: "Pr. Fábio Henrique Cavalcanti", uf: "PB" },

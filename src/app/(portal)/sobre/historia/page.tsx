@@ -20,7 +20,7 @@ export default function HistoriaPage() {
     <>
       <PageHero
         titulo="Nossa História"
-        subtitulo="Mais de oito décadas separando um salão alugado em Manaus de uma denominação presente em 21 estados e quatro continentes."
+        subtitulo="Mais de oito décadas separando um salão alugado em Manaus de uma denominação presente em 22 estados e quatro continentes."
         trilha={[{ rotulo: "Sobre a MEPB", href: "/sobre" }, { rotulo: "Nossa História" }]}
       />
 

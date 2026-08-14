@@ -16,17 +16,16 @@ export const SITE = {
   },
   sede: {
     titulo: "Sede Nacional",
-    endereco: "Av. Prudente de Morais, 1450 — Tirol",
+    endereco: "Rua Itaporanga, 184 — Cidade da Esperança",
     cidade: "Natal",
     uf: "RN",
-    cep: "59020-400",
-    telefone: "(84) 3221-0000",
-    whatsapp: "(84) 98800-0000",
-    email: "contato@mepb.org.br",
+    cep: "59070-470",
+    telefone: "(84) 3205-4155",
+    email: "mepb@mepb.org.br",
     horarioAtendimento: "Segunda a sexta, das 8h às 17h",
   },
   redes: {
-    instagram: "https://instagram.com/mepbnacional",
+    instagram: "https://instagram.com/mepboficial",
     facebook: "https://facebook.com/mepbnacional",
     youtube: "https://youtube.com/@mepbnacional",
     spotify: "https://open.spotify.com/show/mepb",
@@ -36,9 +35,9 @@ export const SITE = {
 /** Indicadores institucionais exibidos na faixa de números da home. */
 export const NUMEROS = [
   { valor: "85+", rotulo: "anos de história", detalhe: "desde 1939" },
-  { valor: "21", rotulo: "estados", detalhe: "presença nacional" },
+  { valor: "22", rotulo: "estados", detalhe: "presença nacional" },
   { valor: "16", rotulo: "capitais", detalhe: "em todas as regiões" },
-  { valor: "130+", rotulo: "municípios", detalhe: "igrejas e congregações" },
+  { valor: "133+", rotulo: "municípios", detalhe: "igrejas e congregações" },
   { valor: "4", rotulo: "continentes", detalhe: "campo missionário" },
 ] as const;
 

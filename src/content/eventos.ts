@@ -12,7 +12,7 @@ export const EVENTOS: Evento[] = [
     cidade: "Natal",
     uf: "RN",
     local: "Templo Central — Sede Nacional",
-    endereco: "Av. Prudente de Morais, 1450 — Tirol, Natal/RN",
+    endereco: "Rua Itaporanga, 184 — Cidade da Esperança, Natal/RN",
     descricao:
       "Assembleia máxima da denominação, reúne delegados das igrejas filiadas de todo o país para deliberações administrativas, eleição do Supremo Concílio e cultos de celebração.",
     imagem: {
@@ -24,7 +24,7 @@ export const EVENTOS: Evento[] = [
     valor: "Delegados: isento · Visitantes: R$ 60,00",
     publico: "Pastores, obreiros, delegados e membros",
     programacao: [
-      { horario: "14/10 · 19h30", atividade: "Culto de Abertura", responsavel: "Pr. Josué Andrade Lima" },
+      { horario: "14/10 · 19h30", atividade: "Culto de Abertura", responsavel: "Pr. José Azemar" },
       { horario: "15/10 · 08h00", atividade: "Primeira Sessão Administrativa" },
       { horario: "15/10 · 14h00", atividade: "Painel: Plantação de Igrejas no Brasil" },
       { horario: "15/10 · 19h30", atividade: "Culto Missionário", responsavel: "Pr. Elias Ferreira do Nascimento" },

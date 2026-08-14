@@ -18,7 +18,7 @@ const SECOES = [
     href: "/sobre/historia",
     titulo: "Nossa História",
     descricao:
-      "De um salão alugado em Manaus, em 1939, à presença em 21 estados e quatro continentes. Linha do tempo completa e acervo histórico.",
+      "De um salão alugado em Manaus, em 1939, à presença em 22 estados e quatro continentes. Linha do tempo completa e acervo histórico.",
     Icone: Milestone,
   },
   {
@@ -103,8 +103,8 @@ export default function SobrePage() {
                 </p>
                 <p>
                   A denominação é dirigida nacionalmente por um órgão colegiado chamado
-                  Supremo Concílio. Está presente em 21 estados da federação, 16 capitais
-                  e em mais de 130 municípios, e desenvolve trabalho assistencial por meio
+                  Supremo Concílio. Está presente em 22 estados da federação, 16 capitais
+                  e em mais de 133 municípios, e desenvolve trabalho assistencial por meio
                   de seus departamentos nacionais e estaduais de educação teológica e
                   secular, além do barco Missionária Ethel Matson, que atende as populações
                   ribeirinhas do Rio Negro, na Amazônia.
@@ -114,6 +114,7 @@ export default function SobrePage() {
                   quatro continentes do mundo por meio de seus missionários e parceiros,
                   levando o Evangelho de Cristo a comunidades diversas.
                 </p>
+                <p>{MISSAO.extensa}</p>
               </div>
             </Reveal>
           </div>

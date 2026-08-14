@@ -76,7 +76,7 @@ export default function Home() {
 
             <p className="prose-portal mt-6 leading-relaxed text-fg-muted">
               De um salão alugado no bairro do Alecrim, em Natal, a obra se estendeu
-              a 21 estados, 16 capitais e mais de 130 municípios — e alcançou quatro
+              a 22 estados, 16 capitais e mais de 133 municípios — e alcançou quatro
               continentes por meio de seus missionários e parceiros. Ao longo de mais
               de oito décadas, a Missão manteve o mesmo compromisso: anunciar Cristo,
               formar discípulos e cuidar de pessoas.

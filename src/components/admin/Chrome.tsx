@@ -147,10 +147,10 @@ export function AdminChrome({ children }: { children: React.ReactNode }) {
               aria-hidden="true"
               className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-[var(--mepb-navy-900)] text-xs font-bold text-white"
             >
-              JL
+              JA
             </span>
             <div className="hidden text-left sm:block">
-              <p className="text-sm font-semibold leading-tight">Pr. Josué Lima</p>
+              <p className="text-sm font-semibold leading-tight">Pr. José Azemar</p>
               <p className="text-xs leading-tight text-fg-subtle">Administrador</p>
             </div>
           </div>

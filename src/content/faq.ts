@@ -15,7 +15,7 @@ export const PERGUNTAS: PerguntaFrequente[] = [
     categoria: "Sobre a MEPB",
     pergunta: "O que é a Missão Evangélica Pentecostal do Brasil?",
     resposta:
-      "A MEPB é uma denominação evangélica pentecostal brasileira, fundada em 1939 em Manaus a partir do trabalho do casal missionário Harland e Hazel Graham. Organizou-se formalmente em 1965 e hoje mantém sede nacional em Natal, no Rio Grande do Norte, com atuação em 21 estados e em campos missionários de quatro continentes.",
+      "A MEPB é uma denominação evangélica pentecostal brasileira, fundada em 1939 em Manaus a partir do trabalho do casal missionário Harland e Hazel Graham. Organizou-se formalmente em 1965 e hoje mantém sede nacional em Natal, no Rio Grande do Norte, com atuação em 22 estados e em campos missionários de quatro continentes.",
   },
   {
     categoria: "Sobre a MEPB",
@@ -27,7 +27,7 @@ export const PERGUNTAS: PerguntaFrequente[] = [
     categoria: "Sobre a MEPB",
     pergunta: "Em quais estados a MEPB está presente?",
     resposta:
-      "A denominação está presente em 21 estados da federação, em 16 capitais e em mais de 130 municípios. Você pode conferir a lista completa e localizar a igreja mais próxima na página Encontre uma Igreja.",
+      "A denominação está presente em 22 estados da federação, em 16 capitais e em mais de 133 municípios. Você pode conferir a lista completa e localizar a igreja mais próxima na página Encontre uma Igreja.",
   },
   {
     categoria: "Visitantes",

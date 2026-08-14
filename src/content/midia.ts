@@ -15,7 +15,7 @@ export const MIDIAS: Midia[] = [
     slug: "a-fidelidade-que-atravessa-geracoes",
     titulo: "A fidelidade que atravessa gerações",
     tipo: "Mensagem",
-    preletor: "Pr. Josué Andrade Lima",
+    preletor: "Pr. José Azemar",
     data: "2026-07-20",
     duracao: "48 min",
     descricao:
@@ -84,7 +84,7 @@ export const MIDIAS: Midia[] = [
     slug: "live-culto-de-celebracao-julho",
     titulo: "Culto de Celebração ao vivo — Templo Central",
     tipo: "Live",
-    preletor: "Pr. Josué Andrade Lima",
+    preletor: "Pr. José Azemar",
     data: "2026-07-27",
     duracao: "1h 52min",
     descricao:

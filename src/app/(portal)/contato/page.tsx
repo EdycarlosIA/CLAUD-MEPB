@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
-import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/layout/Pagina";
 import { Formulario } from "@/components/formularios/Formulario";
 import { Card, CardCorpo } from "@/components/ui/Card";
 import { BotaoLink } from "@/components/ui/Botao";
 import { SITE } from "@/content/site";
-import { linkWhatsApp } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contato",
@@ -143,18 +142,6 @@ export default function ContatoPage() {
                     </span>
                   </li>
                 </ul>
-
-                <BotaoLink
-                  href={linkWhatsApp(SITE.sede.whatsapp)}
-                  variante="primario"
-                  larguraTotal
-                  className="mt-7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle aria-hidden="true" className="h-4 w-4" />
-                  Falar no WhatsApp
-                </BotaoLink>
               </CardCorpo>
             </Card>
 

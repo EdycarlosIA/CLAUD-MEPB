@@ -24,7 +24,7 @@ interface Usuario {
 }
 
 const USUARIOS: Usuario[] = [
-  { nome: "Pr. Josué Andrade Lima", email: "josue.lima@mepb.org.br", papel: "Administrador Nacional", escopo: "Nacional", situacao: "Ativo", ultimoAcesso: "hoje, 09h14" },
+  { nome: "Pr. José Azemar", email: "jose.azemar@mepb.org.br", papel: "Administrador Nacional", escopo: "Nacional", situacao: "Ativo", ultimoAcesso: "hoje, 09h14" },
   { nome: "Pr. Marcos Vinícius Teixeira", email: "marcos.teixeira@mepb.org.br", papel: "Secretaria Estadual", escopo: "Ceará", situacao: "Ativo", ultimoAcesso: "ontem, 16h02" },
   { nome: "Irmã Neide Barros de Souza", email: "neide.souza@mepb.org.br", papel: "Departamento", escopo: "Mulheres", situacao: "Ativo", ultimoAcesso: "há 2 dias" },
   { nome: "Secretaria de Comunicação", email: "comunicacao@mepb.org.br", papel: "Comunicação", escopo: "Nacional", situacao: "Ativo", ultimoAcesso: "hoje, 08h30" },

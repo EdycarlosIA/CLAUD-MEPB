@@ -49,7 +49,8 @@ export interface Igreja {
   coordenadas: { lat: number; lng: number };
   pastor: {
     nome: string;
-    desde: number;
+    /** Ano de início não confirmado para todos os registros — omitir quando desconhecido. */
+    desde?: number;
     bio: string;
     foto: Imagem;
   };

@@ -112,7 +112,7 @@ export function Localizador() {
                 type="search"
                 value={busca}
                 onChange={(e) => setBusca(e.target.value)}
-                placeholder="Ex.: Natal, Tirol, Templo Central…"
+                placeholder="Ex.: Natal, Cidade da Esperança, Templo Central…"
                 className={cn(
                   "min-h-[var(--tap-target)] w-full rounded-[var(--field-radius)] border border-[var(--field-border)]",
                   "bg-[var(--field-bg)] py-3 pl-12 pr-4 text-[0.9375rem]",

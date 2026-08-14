@@ -130,6 +130,88 @@ label.lbl{display:block; margin-bottom:.55rem; font-size:.8125rem; font-weight:6
 .leia-mais-btn svg{transition:transform .25s var(--ease)}
 .leia-mais-btn.aberto svg{transform:rotate(180deg)}
 
+/* TV MEPB — vitrine em estilo streaming (hero + fileiras horizontais) */
+.tv-hero{position:relative; overflow:hidden; min-height:min(78vh,40rem); display:flex; align-items:flex-end; color:#fff; background:var(--navy-950)}
+.tv-hero-bg{position:absolute; inset:0}
+.tv-hero-bg svg{width:100%; height:100%; transform:scale(1.06)}
+.tv-hero-scrim{position:absolute; inset:0; background:linear-gradient(0deg, var(--navy-950) 0%, rgb(13 17 41/.55) 45%, transparent 100%), linear-gradient(90deg, rgb(13 17 41/.92), rgb(13 17 41/.15) 55%, transparent 85%)}
+.tv-hero-inner{position:relative; padding-block:calc(var(--nav-h) + 3.5rem) 5rem; max-width:38rem}
+.tv-hero-eyebrow{display:flex; align-items:center; gap:.5rem; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:var(--red-400)}
+.tv-hero-eyebrow span{width:.4rem; height:.4rem; border-radius:99px; background:currentColor; flex-shrink:0}
+.tv-hero-titulo{margin-top:1rem; font-size:clamp(1.75rem,1.3rem + 2vw,2.75rem); line-height:1.12; font-family:var(--font-serif); font-weight:700}
+.tv-hero-meta{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:1.1rem; font-size:.9375rem; color:rgb(255 255 255/.8)}
+.tv-hero-desc{margin-top:1.1rem; font-size:1.0625rem; line-height:1.6; color:rgb(255 255 255/.88); max-width:34rem}
+.tv-hero-acoes{display:flex; flex-wrap:wrap; gap:.75rem; margin-top:1.75rem}
+.tv-filtros{display:flex; flex-wrap:wrap; gap:1rem; align-items:center; padding:1.1rem; border-radius:var(--radius-xl); background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow-lg)}
+.chip-filtro{min-height:2.5rem; padding-inline:1rem; border-radius:99px; border:1px solid var(--border-strong); background:var(--surface); color:var(--fg-muted); font-size:.875rem; font-weight:600; white-space:nowrap; transition:all .2s var(--ease)}
+.chip-filtro:hover{border-color:var(--primary); color:var(--primary)}
+.chip-filtro.ativo{background:var(--primary); border-color:var(--primary); color:#fff}
+
+.carrossel-lista{display:flex; gap:1.1rem; overflow-x:auto; scroll-snap-type:x mandatory; padding:.25rem 1.5rem .75rem}
+@media(min-width:1024px){.carrossel-lista{padding-inline:2rem}}
+.carrossel-lista > li{width:15.5rem; flex-shrink:0; scroll-snap-align:start; list-style:none}
+.carrossel-lista-4x3 > li{width:13.5rem}
+
+.play-badge{display:inline-flex; align-items:center; justify-content:center; width:4rem; height:4rem; border-radius:99px; background:rgb(255 255 255/.92); color:var(--navy-900); box-shadow:var(--shadow-lg); flex-shrink:0}
+.play-badge svg{width:1.75rem; height:1.75rem; fill:var(--navy-900); stroke:var(--navy-900)}
+
+.tv-cartao{display:block; width:100%; text-align:left}
+.tv-cartao-img{position:relative; display:block; aspect-ratio:16/9; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-sm); transition:transform .3s var(--ease-spring), box-shadow .3s var(--ease)}
+.tv-cartao:hover .tv-cartao-img, .tv-cartao:focus-visible .tv-cartao-img{transform:scale(1.045); box-shadow:var(--shadow-lg)}
+.tv-cartao-play{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; opacity:0; background:rgb(13 17 41/0); transition:opacity .2s, background .2s}
+.tv-cartao:hover .tv-cartao-play, .tv-cartao:focus-visible .tv-cartao-play{opacity:1; background:rgb(13 17 41/.28)}
+.tv-cartao-play .play-badge{width:3rem; height:3rem}
+.tv-cartao-play .play-badge svg{width:1.35rem; height:1.35rem}
+.tv-cartao-duracao{position:absolute; right:.5rem; bottom:.5rem; padding:.15rem .45rem; border-radius:.3rem; background:rgb(13 17 41/.85); color:#fff; font-size:.6875rem; font-weight:700}
+.tv-cartao-corpo{display:block; margin-top:.6rem}
+.tv-cartao-titulo{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:.9375rem; font-weight:600; line-height:1.3}
+.tv-cartao-meta{display:block; margin-top:.3rem; font-size:.8125rem; color:var(--fg-muted)}
+
+.midia-compacta{display:flex; gap:.75rem; width:100%; text-align:left; align-items:flex-start; padding:.4rem; border-radius:var(--radius-md); transition:background .15s}
+.midia-compacta:hover{background:var(--bg-subtle)}
+.midia-compacta-img{position:relative; flex-shrink:0; width:6.5rem; aspect-ratio:16/9; border-radius:var(--radius-sm); overflow:hidden}
+.midia-compacta-duracao{position:absolute; right:.25rem; bottom:.25rem; padding:.05rem .3rem; border-radius:.25rem; background:rgb(13 17 41/.85); color:#fff; font-size:.625rem; font-weight:700}
+.midia-compacta-corpo{min-width:0}
+.midia-compacta-titulo{display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; font-size:.8125rem; font-weight:600; line-height:1.3}
+.midia-compacta-meta{display:block; margin-top:.2rem; font-size:.75rem; color:var(--fg-muted)}
+
+/* Área administrativa — réplica simplificada do painel em Next.js */
+.admin-shell{display:flex; min-height:100vh; background:var(--bg-subtle)}
+.admin-sidebar{width:15.5rem; flex-shrink:0; background:var(--navy-900); color:#fff; display:flex; flex-direction:column; padding:1.5rem 1rem; position:sticky; top:0; align-self:flex-start; height:100vh; overflow-y:auto}
+.admin-sidebar-brand{display:flex; align-items:center; gap:.6rem; padding:0 .5rem; font-weight:700; letter-spacing:.08em; font-size:.8125rem; text-transform:uppercase; color:rgb(255 255 255/.9)}
+.admin-sidebar-brand svg{width:1.75rem; height:1.75rem; flex-shrink:0}
+.admin-nav{margin-top:2rem; display:flex; flex-direction:column; gap:.15rem}
+.admin-nav-item{display:flex; align-items:center; gap:.75rem; width:100%; text-align:left; padding:.7rem .85rem; border-radius:var(--radius-md); font-size:.9375rem; font-weight:500; color:rgb(255 255 255/.72); transition:background .15s, color .15s; white-space:nowrap}
+.admin-nav-item svg{flex-shrink:0}
+.admin-nav-item:hover{background:rgb(255 255 255/.08); color:#fff}
+.admin-nav-item.ativo{background:#fff; color:var(--navy-900); font-weight:700}
+.admin-main{flex:1; min-width:0}
+.admin-topbar{display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.1rem 2rem; background:var(--surface); border-bottom:1px solid var(--border)}
+.admin-topbar-divisor{width:1px; height:1.5rem; background:var(--border); flex-shrink:0}
+.admin-topbar-sub{margin-left:.5rem; color:var(--fg-muted); font-size:.875rem}
+.admin-voltar{display:flex; align-items:center; gap:.5rem; padding:.6rem .85rem; margin-left:-.5rem; border-radius:var(--radius-md); font-size:.875rem; font-weight:600; color:var(--fg-muted); white-space:nowrap}
+.admin-voltar:hover{background:var(--bg-muted); color:var(--fg)}
+.admin-conteudo{padding:1.5rem}
+@media(min-width:768px){.admin-conteudo{padding:2rem}}
+.admin-painel-head h1{font-size:1.5rem}
+@media(min-width:768px){.admin-painel-head h1{font-size:1.75rem}}
+.admin-painel-head p{margin-top:.35rem; color:var(--fg-muted)}
+.admin-kpis{display:grid; gap:1.1rem; grid-template-columns:repeat(auto-fit,minmax(11rem,1fr))}
+.admin-tabela{width:100%; border-collapse:collapse; font-size:.875rem; min-width:32rem}
+.admin-tabela th{text-align:left; padding:.65rem .9rem; font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--fg-subtle); border-bottom:1px solid var(--border); white-space:nowrap}
+.admin-tabela td{padding:.75rem .9rem; border-bottom:1px solid var(--border); white-space:nowrap}
+.admin-tabela tbody tr:last-child td{border-bottom:0}
+.admin-tabela tbody tr:hover{background:var(--bg-subtle)}
+@media(max-width:860px){
+  .admin-shell{flex-direction:column}
+  .admin-sidebar{width:100%; height:auto; position:sticky; top:0; z-index:40; flex-direction:row; align-items:center; overflow-x:auto; padding:.85rem 1rem}
+  .admin-sidebar-brand{display:none}
+  .admin-nav{flex-direction:row; margin-top:0}
+  .admin-topbar{padding-inline:1rem}
+  .admin-topbar-sub{display:none}
+  .admin-topbar-usuario{display:none}
+}
+
 .mapa-tooltip{position:absolute; z-index:10; left:0; top:0; transform:translate(-50%,-100%) scale(.96); background:var(--navy-950); padding:.5rem .85rem; border-radius:var(--radius-md); box-shadow:var(--shadow-lg); opacity:0; pointer-events:none; transition:opacity .18s var(--ease), transform .18s var(--ease)}
 
 /* Faixa com transição suave em vez de linha reta de borda — um fio que some
@@ -155,17 +237,33 @@ header.nav.solido{background:color-mix(in srgb, var(--bg) 95%, transparent); bor
 .logo-txt span{font-size:.6875rem; font-weight:500}
 .nav-links{display:none; align-items:center; gap:.125rem; list-style:none; margin:0; padding:0}
 @media(min-width:1180px){.nav-links{display:flex}}
-.nav-links a{display:flex; align-items:center; min-height:2.75rem; padding-inline:.6rem; border-radius:var(--radius-sm); font-size:.875rem; font-weight:500; white-space:nowrap; transition:color .2s}
+.nav-links a, .nav-dropdown-btn{display:flex; align-items:center; gap:.25rem; min-height:2.75rem; padding-inline:.6rem; border-radius:var(--radius-sm); font-size:.875rem; font-weight:500; white-space:nowrap; transition:color .2s; font-family:inherit}
 .nav-actions{display:flex; align-items:center; gap:.25rem}
 .icon-btn{display:inline-flex; align-items:center; justify-content:center; width:2.75rem; height:2.75rem; border-radius:99px; transition:background .15s, color .2s}
 .icon-btn:hover{background:rgb(128 128 128/.12)}
 /* Sobre o hero escuro (topo da home), a navbar é transparente e o texto
    precisa ser claro; ao rolar, ela vira sólida e o texto acompanha --fg.
    Sem isso os links do menu ficam quase invisíveis sobre o hero. */
-header.nav .nav-links a, header.nav .icon-btn, header.nav .hamburger{color:#fff}
-header.nav.solido .nav-links a, header.nav.solido .icon-btn, header.nav.solido .hamburger{color:var(--fg)}
-header.nav .nav-links a:hover{color:#fff; background:rgb(255 255 255/.12)}
-header.nav.solido .nav-links a:hover{color:var(--fg); background:var(--bg-muted)}
+header.nav .nav-links a, header.nav .icon-btn, header.nav .hamburger, header.nav .nav-dropdown-btn{color:#fff}
+header.nav.solido .nav-links a, header.nav.solido .icon-btn, header.nav.solido .hamburger, header.nav.solido .nav-dropdown-btn{color:var(--fg)}
+header.nav .nav-links a:hover, header.nav .nav-dropdown-btn:hover{color:#fff; background:rgb(255 255 255/.12)}
+header.nav.solido .nav-links a:hover, header.nav.solido .nav-dropdown-btn:hover{color:var(--fg); background:var(--bg-muted)}
+.nav-dropdown{position:relative}
+.nav-dropdown-btn svg{width:.85rem; height:.85rem; transition:transform .2s var(--ease)}
+.nav-dropdown-btn[aria-expanded="true"] svg{transform:rotate(180deg)}
+/* display:none por padrão — [hidden] sozinho não bastaria, porque qualquer
+   regra de autor com "display" (ex.: display:flex no estado aberto) tem mais
+   especificidade que o display:none do estilo padrão do navegador para
+   [hidden], e o painel ficaria sempre visível mesmo com hidden=true. */
+.nav-dropdown-panel{position:absolute; top:calc(100% + .5rem); left:50%; transform:translateX(-50%); min-width:11rem; padding:.5rem; border-radius:var(--radius-md); background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow-lg); display:none; flex-direction:column; gap:.125rem}
+.nav-dropdown-panel.aberto{display:flex}
+.nav-dropdown-panel a{display:block; padding:.6rem .75rem; border-radius:var(--radius-sm); font-size:.9375rem; font-weight:500; color:var(--fg); white-space:nowrap}
+.nav-dropdown-panel a:hover{background:var(--bg-muted)}
+/* O painel sempre tem fundo claro, mesmo com a navbar transparente sobre o
+   hero — sem isto, a regra "header.nav .nav-links a{color:#fff}" (o painel
+   está aninhado dentro de .nav-links) deixa o texto branco sobre branco. */
+header.nav .nav-dropdown-panel a, header.nav.solido .nav-dropdown-panel a{color:var(--fg)}
+header.nav .nav-dropdown-panel a:hover, header.nav.solido .nav-dropdown-panel a:hover{color:var(--fg); background:var(--bg-muted)}
 .cta-nav{display:none}
 @media(min-width:960px){.cta-nav{display:inline-flex}}
 .hamburger{display:inline-flex; xl:hidden}
@@ -179,6 +277,15 @@ header.nav.solido .nav-links a:hover{color:var(--fg); background:var(--bg-muted)
 .drawer-nav a{display:flex; align-items:center; min-height:2.75rem; padding-inline:1rem; border-radius:var(--radius-md); font-weight:500}
 .drawer-nav a:hover{background:var(--bg-subtle)}
 .drawer-foot{padding:1rem; border-top:1px solid var(--border); flex-shrink:0}
+
+/* Modal — usado no "assistir" da TV MEPB e na lightbox da Galeria */
+.modal-overlay{position:fixed; inset:0; z-index:70; background:rgb(6 8 20/.72); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:opacity .2s}
+.modal-overlay.aberto{opacity:1; pointer-events:auto}
+.modal-caixa{position:fixed; z-index:71; left:50%; top:50%; width:min(42rem,92vw); max-height:88vh; overflow-y:auto; background:var(--surface); border-radius:var(--radius-xl); box-shadow:var(--shadow-xl); opacity:0; pointer-events:none; transform:translate(-50%,-48%) scale(.97); transition:opacity .22s var(--ease), transform .22s var(--ease)}
+.modal-caixa.aberto{opacity:1; pointer-events:auto; transform:translate(-50%,-50%) scale(1)}
+.modal-fechar{position:absolute; top:.85rem; right:.85rem; z-index:2; background:rgb(13 17 41/.55); color:#fff; backdrop-filter:blur(4px)}
+.modal-fechar:hover{background:rgb(13 17 41/.75)}
+@media(prefers-reduced-motion:reduce){.modal-caixa{transition:none}}
 
 /* Hero */
 .hero{position:relative; min-height:min(88vh,50rem); display:flex; align-items:center; overflow:hidden; background:var(--navy-900); color:#fff}
@@ -210,6 +317,7 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
 .numeros .detalhe{display:block; margin-top:.125rem; font-size:.75rem; color:var(--fg-subtle)}
 </style>
 
+<div id="appPortal">
 <header class="nav" id="siteNav">
   <nav class="container nav-inner" aria-label="Navegação principal">
     <a href="#inicio" class="logo" id="logoLink" aria-label="MEPB — Página inicial"></a>
@@ -220,7 +328,14 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
       <li><a href="#noticias">Notícias</a></li>
       <li><a href="#agenda">Agenda</a></li>
       <li><a href="#departamentos">Departamentos</a></li>
-      <li><a href="#documentos">Documentos</a></li>
+      <li class="nav-dropdown">
+        <button type="button" class="nav-dropdown-btn" id="btnMidiaMenu" aria-haspopup="true" aria-expanded="false" aria-controls="menuMidia">Mídia</button>
+        <div class="nav-dropdown-panel" id="menuMidia" role="menu" aria-labelledby="btnMidiaMenu" hidden>
+          <a href="#tv" role="menuitem">TV MEPB</a>
+          <a href="#galeria" role="menuitem">Galeria</a>
+          <a href="#documentos" role="menuitem">Documentos</a>
+        </div>
+      </li>
       <li><a href="#doacoes">Doações</a></li>
       <li><a href="#oracao">Oração</a></li>
     </ul>
@@ -245,6 +360,8 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
     <a href="#noticias">Notícias</a>
     <a href="#agenda">Agenda</a>
     <a href="#departamentos">Departamentos</a>
+    <a href="#tv">TV MEPB</a>
+    <a href="#galeria">Galeria</a>
     <a href="#documentos">Documentos</a>
     <a href="#doacoes">Doações</a>
     <a href="#oracao">Oração</a>
@@ -252,6 +369,12 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
   <div class="drawer-foot">
     <a href="#localizador" class="btn btn-primary" style="width:100%">Encontre uma Igreja</a>
   </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay"></div>
+<div class="modal-caixa" id="modalCaixa" role="dialog" aria-modal="true" aria-labelledby="modalTitulo" tabindex="-1">
+  <button class="icon-btn modal-fechar" id="btnFecharModal" aria-label="Fechar" type="button"></button>
+  <div id="modalConteudo"></div>
 </div>
 
 <main id="conteudo">
@@ -288,6 +411,8 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
   <div id="secaoAgenda"></div>
   <div id="secaoMissoes"></div>
   <div id="secaoDepartamentos"></div>
+  <div id="secaoTV"></div>
+  <div id="secaoGaleria"></div>
   <div id="secaoDocumentos"></div>
   <div id="secaoLocalizador"></div>
   <div id="secaoDoacoes"></div>
@@ -296,6 +421,40 @@ blockquote.versiculo cite{display:block; margin-top:.65rem; font-size:.75rem; fo
 </main>
 
 <div id="rodape"></div>
+</div>
+
+<div id="appAdmin" hidden>
+  <div class="admin-shell">
+    <aside class="admin-sidebar">
+      <div class="admin-sidebar-brand"><span id="adminLogoMark"></span><span>Painel</span></div>
+      <nav class="admin-nav" id="adminNav">
+        <button type="button" class="admin-nav-item ativo" data-view="dashboard" data-icone="grafico">Dashboard</button>
+        <button type="button" class="admin-nav-item" data-view="igrejas" data-icone="pin">Igrejas</button>
+        <button type="button" class="admin-nav-item" data-view="pastores" data-icone="user">Pastores</button>
+        <button type="button" class="admin-nav-item" data-view="eventos" data-icone="calendar">Eventos</button>
+        <button type="button" class="admin-nav-item" data-view="noticias" data-icone="book">Notícias</button>
+        <button type="button" class="admin-nav-item" data-icone="globe" data-toast="No protótipo completo, esta tela lista os missionários cadastrados.">Missionários</button>
+        <button type="button" class="admin-nav-item" data-view="midia" data-icone="play">Mídia</button>
+        <button type="button" class="admin-nav-item" data-icone="escudo" data-toast="No protótipo completo, esta tela gerencia usuários e permissões.">Permissões</button>
+      </nav>
+    </aside>
+    <div class="admin-main">
+      <header class="admin-topbar">
+        <div style="display:flex;align-items:center;gap:1rem;min-width:0">
+          <button type="button" class="admin-voltar" id="btnVoltarPortal"></button>
+          <span class="admin-topbar-divisor" aria-hidden="true"></span>
+          <div style="min-width:0"><span style="font-weight:700">Área Administrativa</span><span class="admin-topbar-sub">Missão Evangélica Pentecostal do Brasil</span></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;flex-shrink:0">
+          <span style="display:inline-flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;border-radius:99px;background:var(--navy-900);color:#fff;font-weight:700;font-size:.8125rem;flex-shrink:0">JA</span>
+          <div class="admin-topbar-usuario" style="line-height:1.2"><p style="font-weight:600;font-size:.875rem">Pr. José Azemar</p><p style="font-size:.75rem;color:var(--fg-muted)">Administrador</p></div>
+        </div>
+      </header>
+      <div class="admin-conteudo" id="adminConteudo"></div>
+    </div>
+  </div>
+</div>
+
 <div id="toastHost" aria-live="polite"></div>
 
 <script>
@@ -371,6 +530,42 @@ const IGREJAS = [
   {nome:"Congregação Ribeirinha do Rio Negro",tipo:"Congregação",cidade:"Novo Airão",uf:"AM",bairro:"Comunidade São Sebastião",endereco:"Margem esquerda do Rio Negro, km 42",pastor:"Missionário Paulo Tavares",desde:2010,culto:"Sáb 18h",fundacao:1998},
   {nome:"Igreja MEPB de Boa Vista",tipo:"Igreja",cidade:"Boa Vista",uf:"RR",bairro:"Centro",endereco:"Av. Ville Roy, 5200",pastor:"Pr. Hélio Marques Fontes",desde:2019,culto:"Dom 09h e 18h30",fundacao:2001},
   {nome:"Igreja MEPB de Belo Horizonte",tipo:"Igreja",cidade:"Belo Horizonte",uf:"MG",bairro:"Santa Efigênia",endereco:"Rua Domingos Vieira, 590",pastor:"Pr. Emerson Lopes Ferreira",desde:2022,culto:"Dom 09h e 18h30",fundacao:2015},
+];
+
+/* TV MEPB — mesmo catálogo de demonstração do protótipo em Next.js. `ordem`
+   substitui a data real (maior = mais recente) para ordenar sem parser de data. */
+const TIPOS_MIDIA = ['Mensagem','Série','Podcast','Live','Documentário'];
+const MIDIAS = [
+  {slug:'a-fidelidade-que-atravessa-geracoes',titulo:'A fidelidade que atravessa gerações',tipo:'Mensagem',preletor:'Pr. José Azemar',data:'20 jul 2026',ordem:8,duracao:'48 min',descricao:'Mensagem ministrada no culto de celebração dos 85 anos da Missão, sobre a fidelidade de Deus ao longo da história da denominação.',destaque:true,serie:null},
+  {slug:'serie-fundamentos-da-fe-01',titulo:'Fundamentos da Fé — Episódio 1: As Escrituras',tipo:'Série',serie:'Fundamentos da Fé',preletor:'Pr. Marcos Vinícius Teixeira',data:'06 jul 2026',ordem:6,duracao:'32 min',descricao:'Primeiro episódio da série que percorre os artigos da declaração de fé da MEPB, começando pela autoridade das Sagradas Escrituras.',destaque:true},
+  {slug:'serie-fundamentos-da-fe-02',titulo:'Fundamentos da Fé — Episódio 2: O Deus Único e Trino',tipo:'Série',serie:'Fundamentos da Fé',preletor:'Pr. Marcos Vinícius Teixeira',data:'13 jul 2026',ordem:7,duracao:'35 min',descricao:'Segundo episódio da série, dedicado à doutrina da Trindade e à sua importância para a vida devocional do cristão.',destaque:false},
+  {slug:'podcast-caminhos-da-missao-ep-12',titulo:'Caminhos da Missão — Ep. 12: Onze dias de rio',tipo:'Podcast',serie:'Caminhos da Missão',preletor:'Missionário Paulo Tavares',data:'30 jun 2026',ordem:5,duracao:'54 min',descricao:'O missionário Paulo Tavares relata como é uma viagem completa do barco Missionária Ethel Matson pelas comunidades do Rio Negro.',destaque:false},
+  {slug:'podcast-caminhos-da-missao-ep-11',titulo:'Caminhos da Missão — Ep. 11: Vinte anos em Moçambique',tipo:'Podcast',serie:'Caminhos da Missão',preletor:'Casal Moura',data:'16 jun 2026',ordem:4,duracao:'61 min',descricao:'Conversa com Roberto e Lúcia Moura sobre duas décadas de trabalho na província de Nampula e a formação de líderes locais.',destaque:false},
+  {slug:'live-culto-de-celebracao-julho',titulo:'Culto de Celebração ao vivo — Templo Central',tipo:'Live',preletor:'Pr. José Azemar',data:'27 jul 2026',ordem:9,duracao:'1h 52min',descricao:'Transmissão ao vivo do culto dominical de celebração diretamente da Sede Nacional, em Natal.',destaque:false},
+  {slug:'documentario-85-anos',titulo:'85 Anos — A história da Missão contada por quem a viveu',tipo:'Documentário',preletor:'Secretaria de Comunicação',data:'14 mar 2026',ordem:1,duracao:'42 min',descricao:'Documentário com depoimentos de pastores, missionários e membros antigos sobre os oitenta e cinco anos de história da MEPB.',destaque:true},
+  {slug:'mensagem-o-chamado-e-a-perseveranca',titulo:'O chamado e a perseverança',tipo:'Mensagem',preletor:'Pr. Cleiton Ribeiro Mendes',data:'08 jun 2026',ordem:3,duracao:'39 min',descricao:'Mensagem dirigida à juventude sobre firmeza no propósito de Deus diante das pressões do tempo presente.',destaque:false},
+  {slug:'serie-familia-segundo-a-palavra-01',titulo:'Família segundo a Palavra — Episódio 1: O lar como altar',tipo:'Série',serie:'Família segundo a Palavra',preletor:'Pr. Antônio Carlos Beserra',data:'18 mai 2026',ordem:2,duracao:'28 min',descricao:'Abertura da série sobre vida familiar cristã, tratando da responsabilidade espiritual dentro de casa.',destaque:false},
+];
+
+/* Galeria — mesmo acervo de demonstração do protótipo em Next.js. */
+const CATEGORIAS_GALERIA = ['Eventos','Missões','Departamentos','Histórico','Igrejas'];
+const GALERIA = [
+  {id:'g01',titulo:'Culto de abertura da Convenção Nacional',categoria:'Eventos',tipo:'foto',data:'15 out 2025',local:'Natal, RN'},
+  {id:'g02',titulo:'Festival de Louvor do Congresso de Jovens',categoria:'Eventos',tipo:'video',data:'22 ago 2025',local:'Fortaleza, CE'},
+  {id:'g03',titulo:'Barco Missionária Ethel Matson no Rio Negro',categoria:'Missões',tipo:'foto',data:'11 jun 2026',local:'Novo Airão, AM'},
+  {id:'g04',titulo:'Batismo em comunidade ribeirinha',categoria:'Missões',tipo:'foto',data:'14 jun 2026',local:'Rio Negro, AM'},
+  {id:'g05',titulo:'Formatura do instituto bíblico em Luanda',categoria:'Missões',tipo:'foto',data:'06 dez 2025',local:'Luanda, Angola'},
+  {id:'g06',titulo:'Círculo de oração do Departamento de Mulheres',categoria:'Departamentos',tipo:'foto',data:'08 mar 2026',local:'Recife, PE'},
+  {id:'g07',titulo:'Férias com Cristo — Departamento de Crianças',categoria:'Departamentos',tipo:'foto',data:'22 jan 2026',local:'Salvador, BA'},
+  {id:'g08',titulo:'Mutirão de serviço do Departamento de Homens',categoria:'Departamentos',tipo:'foto',data:'09 nov 2025',local:'Mossoró, RN'},
+  {id:'g09',titulo:'Primeiro templo da Missão em Manaus',categoria:'Histórico',tipo:'foto',data:'01 jan 1941',local:'Manaus, AM'},
+  {id:'g10',titulo:'Casal missionário Harland e Hazel Graham',categoria:'Histórico',tipo:'foto',data:'01 jan 1939',local:'Manaus, AM'},
+  {id:'g11',titulo:'Primeira Convenção Nacional',categoria:'Histórico',tipo:'foto',data:'01 jan 1966',local:'Natal, RN'},
+  {id:'g12',titulo:'Templo Central de Natal — Sede Nacional',categoria:'Igrejas',tipo:'foto',data:'18 fev 2026',local:'Natal, RN'},
+  {id:'g13',titulo:'Inauguração da igreja de Belo Horizonte',categoria:'Igrejas',tipo:'video',data:'30 mai 2026',local:'Belo Horizonte, MG'},
+  {id:'g14',titulo:'Igreja MEPB de Boa Vista',categoria:'Igrejas',tipo:'foto',data:'03 abr 2026',local:'Boa Vista, RR'},
+  {id:'g15',titulo:'Encontro Nacional de Casais',categoria:'Eventos',tipo:'foto',data:'05 abr 2026',local:'João Pessoa, PB'},
+  {id:'g16',titulo:'Seminário Regional de Liderança',categoria:'Eventos',tipo:'foto',data:'09 ago 2025',local:'Manaus, AM'},
 ];
 /* ==========================================================================
    PARTE 2 — MARCA E ILUSTRAÇÕES
@@ -668,6 +863,13 @@ const ICONES = {
   carteira: '<svg class="icon" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><circle cx="8" cy="12" r="2.1"/><path d="M5 16.3c.5-1.5 1.7-2.3 3-2.3s2.5.8 3 2.3M14 9.5h5M14 13h5M14 16.5h3.5"/></svg>',
   musica: '<svg class="icon" viewBox="0 0 24 24"><path d="M9 18V5.2L20 3v12.8"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="15.8" r="2.5"/></svg>',
   download: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M12 3v13m0 0-4.5-4.5M12 16l4.5-4.5M4 20h16"/></svg>',
+  buscar: '<svg class="icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M20 20l-4.8-4.8"/></svg>',
+  fechar: '<svg class="icon" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19"/></svg>',
+  lapis: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M4 20h4L20 8l-4-4L4 16v4Z"/><path d="M13.5 5.5l4 4"/></svg>',
+  lixeira: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></svg>',
+  escudo: '<svg class="icon" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>',
+  grafico: '<svg class="icon" viewBox="0 0 24 24"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>',
+  voltar: '<svg class="icon" viewBox="0 0 24 24" style="width:1rem;height:1rem"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>',
 };
 
 /** Alterna o bloco "Leia mais" — mesmo padrão de acordeão usado no site oficial. */
@@ -764,7 +966,7 @@ function secaoAcesso(){
   const itens = [
     {icone:'pin',titulo:'Encontre uma Igreja',texto:'Localize a igreja MEPB mais próxima de você em todo o Brasil.',href:'#localizador'},
     {icone:'calendar',titulo:'Agenda Nacional',texto:'Congressos, convenções e eventos oficiais da denominação.',href:'#agenda'},
-    {icone:'play',titulo:'TV MEPB',texto:'Mensagens, séries, podcasts e transmissões ao vivo.',href:'#missoes',toast:'No protótipo completo, este card abre a página /tv.'},
+    {icone:'play',titulo:'TV MEPB',texto:'Mensagens, séries, podcasts e transmissões ao vivo.',href:'#tv'},
     {icone:'book',titulo:'Documentos',texto:'Bandeira, carteirinha, hino, guia da marca e demais materiais oficiais.',href:'#documentos'},
   ];
   return `<section class="section-y soft-band" style="background:var(--bg-subtle)">
@@ -965,6 +1167,233 @@ function secaoDocumentos(){
   <style>#documentosSimbolos{grid-template-columns:1fr}@media(min-width:720px){#documentosSimbolos{grid-template-columns:1fr 1fr}}</style>`;
 }
 
+/* ------------------------------------------------------------------ TV MEPB
+   Vitrine em estilo streaming (Netflix/YouTube): hero em destaque, fileiras
+   horizontais por tipo quando não há filtro, grade de resultados quando há
+   busca ou filtro ativo — mesmo padrão do protótipo em Next.js. */
+let estadoTV = { tipo: '', busca: '' };
+
+function cartaoMidia(m){
+  return `<button type="button" class="tv-cartao" onclick="abrirModalMidia('${m.slug}')" aria-label="Assistir: ${m.titulo}">
+    <span class="tv-cartao-img">
+      ${svgImagemDemo(m.slug, m.titulo)}
+      <span class="tv-cartao-play" aria-hidden="true"><span class="play-badge">${ICONES.play}</span></span>
+      <span class="tv-cartao-duracao">${m.duracao}</span>
+    </span>
+    <span class="tv-cartao-corpo">
+      <span class="tv-cartao-titulo">${m.titulo}</span>
+      <span class="tv-cartao-meta">${m.preletor} · ${m.data}</span>
+    </span>
+  </button>`;
+}
+
+function cartaoMidiaCompacto(m){
+  return `<button type="button" class="midia-compacta" onclick="abrirModalMidia('${m.slug}')" aria-label="Assistir: ${m.titulo}">
+    <span class="midia-compacta-img">${svgImagemDemo(m.slug, m.titulo)}<span class="midia-compacta-duracao">${m.duracao}</span></span>
+    <span class="midia-compacta-corpo">
+      <span class="midia-compacta-titulo">${m.titulo}</span>
+      <span class="midia-compacta-meta">${m.preletor}</span>
+    </span>
+  </button>`;
+}
+
+function secaoTV(){
+  const destaque = MIDIAS.filter(function(m){ return m.destaque; }).sort(function(a,b){ return b.ordem - a.ordem; })[0];
+  return `<section id="tv">
+    <div class="tv-hero">
+      <div class="tv-hero-bg" aria-hidden="true">${svgImagemDemo(destaque.slug, '')}</div>
+      <div class="tv-hero-scrim" aria-hidden="true"></div>
+      <div class="container tv-hero-inner">
+        <p class="tv-hero-eyebrow"><span aria-hidden="true"></span>Em destaque na TV MEPB</p>
+        <h2 class="tv-hero-titulo">${destaque.titulo}</h2>
+        <div class="tv-hero-meta">
+          <span class="badge badge-claro">${destaque.tipo}</span>
+          <span>${destaque.preletor}</span><span aria-hidden="true">·</span><span>${destaque.data}</span><span aria-hidden="true">·</span><span>${destaque.duracao}</span>
+        </div>
+        <p class="tv-hero-desc">${destaque.descricao}</p>
+        <div class="tv-hero-acoes">
+          <button type="button" class="btn btn-claro btn-lg" onclick="abrirModalMidia('${destaque.slug}')">${ICONES.play} Assistir agora</button>
+          <button type="button" class="btn btn-outline btn-lg" style="border-color:rgb(255 255 255/.3);color:#fff;background:rgb(255 255 255/.1)" onclick="abrirModalMidia('${destaque.slug}')">Mais informações</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="position:relative;z-index:2;margin-top:-2.75rem">
+      <div class="tv-filtros reveal">
+        <div style="flex:1;min-width:14rem">
+          <label class="sr-only" for="buscaTV">Buscar na TV MEPB</label>
+          <input id="buscaTV" type="search" class="field" placeholder="Buscar por título, série ou preletor…">
+        </div>
+        <div class="scrollbar-slim" style="overflow-x:auto">
+          <div style="display:flex;gap:.5rem" id="chipsTV">
+            ${["",...TIPOS_MIDIA].map(function(t){ return `<button type="button" class="chip-filtro${t===''?' ativo':''}" data-tipo="${t}">${t||'Tudo'}</button>`; }).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="tvConteudo" style="margin-top:2.5rem;padding-bottom:1rem"></div>
+  </section>`;
+}
+
+function renderizarTV(){
+  const alvo = document.getElementById('tvConteudo');
+  const semFiltro = !estadoTV.tipo && !estadoTV.busca.trim();
+
+  if (semFiltro){
+    alvo.innerHTML = TIPOS_MIDIA.map(function(t){
+      const itens = MIDIAS.filter(function(m){ return m.tipo === t; }).sort(function(a,b){ return b.ordem - a.ordem; });
+      if (itens.length === 0) return '';
+      return `<div style="padding-block:.75rem">
+        <div class="container"><h3 style="font-size:1.125rem;font-weight:700">${t === 'Série' ? 'Séries' : t + 's'}</h3></div>
+        <ul class="carrossel-lista">${itens.map(function(m){ return `<li>${cartaoMidia(m)}</li>`; }).join('')}</ul>
+      </div>`;
+    }).join('');
+    return;
+  }
+
+  const resultados = MIDIAS.filter(function(m){
+    if (estadoTV.tipo && m.tipo !== estadoTV.tipo) return false;
+    return contemTexto(estadoTV.busca, [m.titulo, m.preletor, m.descricao, m.serie]);
+  }).sort(function(a,b){ return b.ordem - a.ordem; });
+
+  alvo.innerHTML = `<div class="container">
+    <p aria-live="polite" style="font-size:.875rem;color:var(--fg-muted)">${resultados.length} ${resultados.length === 1 ? 'conteúdo encontrado' : 'conteúdos encontrados'}</p>
+    ${resultados.length === 0
+      ? '<p style="margin-top:1.5rem;text-align:center;padding:3rem 1rem;border:1px dashed var(--border-strong);border-radius:var(--radius-lg);color:var(--fg-muted)">Nenhum conteúdo encontrado com esses critérios. Tente outra busca.</p>'
+      : `<ul style="list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fill,minmax(15.5rem,1fr))">${resultados.map(function(m){ return `<li>${cartaoMidia(m)}</li>`; }).join('')}</ul>`}
+  </div>`;
+}
+
+function abrirModalMidia(slug){
+  const m = MIDIAS.find(function(x){ return x.slug === slug; });
+  if (!m) return;
+  const relacionados = MIDIAS
+    .filter(function(x){ return x.slug !== slug && (m.serie ? x.serie === m.serie : x.tipo === m.tipo); })
+    .sort(function(a,b){ return b.ordem - a.ordem; })
+    .slice(0, 3);
+
+  const html = `<div style="position:relative;aspect-ratio:16/9;background:var(--navy-950);border-radius:var(--radius-xl) var(--radius-xl) 0 0;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;padding:1.5rem">
+    <div style="position:absolute;inset:0;opacity:.45">${svgImagemDemo(m.slug, '')}</div>
+    <div style="position:relative;display:flex;flex-direction:column;align-items:center">
+      <span class="play-badge">${ICONES.play}</span>
+      <p style="margin-top:1rem;font-weight:600">Reprodução de demonstração</p>
+      <p style="margin-top:.35rem;font-size:.8125rem;color:rgb(255 255 255/.72);max-width:22rem">No portal em produção, este espaço exibe o vídeo hospedado no canal oficial da MEPB no YouTube.</p>
+    </div>
+  </div>
+  <div style="padding:1.75rem">
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center">
+      <span class="badge badge-azul">${m.tipo}</span>${m.serie ? `<span class="badge badge-neutro">${m.serie}</span>` : ''}
+    </div>
+    <h2 id="modalTitulo" style="margin-top:.75rem;font-size:1.375rem">${m.titulo}</h2>
+    <p style="margin-top:.5rem;font-size:.875rem;color:var(--fg-muted)">${m.preletor} · ${m.data} · ${m.duracao}</p>
+    <p style="margin-top:1rem;color:var(--fg-muted);line-height:1.6">${m.descricao}</p>
+    ${relacionados.length ? `<div style="margin-top:1.75rem;padding-top:1.5rem;border-top:1px solid var(--border)">
+      <p style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--fg-muted)">${m.serie ? 'Continue a série' : 'Você também pode gostar'}</p>
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.5rem">${relacionados.map(cartaoMidiaCompacto).join('')}</div>
+    </div>` : ''}
+  </div>`;
+  abrirModal(html, m.titulo);
+}
+
+function inicializarTV(){
+  const busca = document.getElementById('buscaTV');
+  const chips = document.getElementById('chipsTV');
+  busca.addEventListener('input', function(){ estadoTV.busca = busca.value; renderizarTV(); });
+  chips.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip-filtro');
+    if (!btn) return;
+    estadoTV.tipo = btn.dataset.tipo;
+    chips.querySelectorAll('.chip-filtro').forEach(function(c){ c.classList.toggle('ativo', c === btn); });
+    renderizarTV();
+  });
+  renderizarTV();
+}
+
+/* ----------------------------------------------------------------- Galeria */
+let estadoGaleria = { categoria: '' };
+
+function cartaoFoto(item){
+  return `<button type="button" class="tv-cartao" onclick="abrirModalFoto('${item.id}')" aria-label="Ver: ${item.titulo}">
+    <span class="tv-cartao-img" style="aspect-ratio:4/3">
+      ${svgImagemDemo(item.id, item.titulo)}
+      ${item.tipo === 'video' ? `<span class="tv-cartao-play" aria-hidden="true"><span class="play-badge">${ICONES.play}</span></span>` : ''}
+    </span>
+    <span class="tv-cartao-corpo">
+      <span class="tv-cartao-titulo">${item.titulo}</span>
+      <span class="tv-cartao-meta">${item.local} · ${item.data}</span>
+    </span>
+  </button>`;
+}
+
+function secaoGaleria(){
+  return `<section class="section-y" id="galeria">
+    <div class="container">
+      <div class="reveal" style="text-align:center">
+        <p class="badge badge-primario">Galeria</p>
+        <h2 class="rule rule-center" style="font-size:clamp(1.5rem,1.2rem + 1.3vw,2rem);margin-top:.75rem">Registros da nossa história</h2>
+        <p style="margin-top:.75rem;color:var(--fg-muted);max-width:36rem;margin-inline:auto">Fotos e vídeos dos eventos, dos campos missionários e da vida das nossas igrejas.</p>
+      </div>
+      <div class="scrollbar-slim reveal" style="margin-top:2rem;overflow-x:auto">
+        <div style="display:flex;gap:.5rem" id="chipsGaleria">
+          ${["",...CATEGORIAS_GALERIA].map(function(c){ return `<button type="button" class="chip-filtro${c===''?' ativo':''}" data-categoria="${c}">${c||'Tudo'}</button>`; }).join('')}
+        </div>
+      </div>
+    </div>
+    <div id="galeriaConteudo" style="margin-top:2rem"></div>
+  </section>`;
+}
+
+function renderizarGaleria(){
+  const alvo = document.getElementById('galeriaConteudo');
+
+  if (!estadoGaleria.categoria){
+    alvo.innerHTML = CATEGORIAS_GALERIA.map(function(c){
+      const itens = GALERIA.filter(function(g){ return g.categoria === c; });
+      return `<div style="padding-block:.75rem">
+        <div class="container"><h3 style="font-size:1.125rem;font-weight:700">${c}</h3></div>
+        <ul class="carrossel-lista carrossel-lista-4x3">${itens.map(function(item){ return `<li>${cartaoFoto(item)}</li>`; }).join('')}</ul>
+      </div>`;
+    }).join('');
+    return;
+  }
+
+  const resultados = GALERIA.filter(function(g){ return g.categoria === estadoGaleria.categoria; });
+  alvo.innerHTML = `<div class="container">
+    <p aria-live="polite" style="font-size:.875rem;color:var(--fg-muted)">${resultados.length} ${resultados.length === 1 ? 'registro' : 'registros'}</p>
+    <ul style="list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr))">${resultados.map(function(item){ return `<li>${cartaoFoto(item)}</li>`; }).join('')}</ul>
+  </div>`;
+}
+
+function abrirModalFoto(id){
+  const item = GALERIA.find(function(g){ return g.id === id; });
+  if (!item) return;
+  const html = `<div style="position:relative;aspect-ratio:16/9;border-radius:var(--radius-xl) var(--radius-xl) 0 0;overflow:hidden">
+    ${svgImagemDemo(item.id, item.titulo)}
+    ${item.tipo === 'video' ? `<span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgb(13 17 41/.28)"><span class="play-badge">${ICONES.play}</span></span>` : ''}
+  </div>
+  <div style="padding:1.75rem">
+    <div style="display:flex;flex-wrap:wrap;gap:.5rem;align-items:center">
+      <span class="badge badge-neutro">${item.categoria}</span>${item.tipo === 'video' ? '<span class="badge badge-primario">Vídeo</span>' : ''}
+    </div>
+    <h2 id="modalTitulo" style="margin-top:.75rem;font-size:1.25rem">${item.titulo}</h2>
+    <p style="margin-top:.5rem;font-size:.875rem;color:var(--fg-muted)">${item.local} · ${item.data}</p>
+  </div>`;
+  abrirModal(html, item.titulo);
+}
+
+function inicializarGaleria(){
+  const chips = document.getElementById('chipsGaleria');
+  chips.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip-filtro');
+    if (!btn) return;
+    estadoGaleria.categoria = btn.dataset.categoria;
+    chips.querySelectorAll('.chip-filtro').forEach(function(c){ c.classList.toggle('ativo', c === btn); });
+    renderizarGaleria();
+  });
+  renderizarGaleria();
+}
+
 /* ==========================================================================
    PARTE 5 — LOCALIZADOR, ORAÇÃO, CONVITE E RODAPÉ
    ========================================================================== */
@@ -1139,8 +1568,9 @@ function secaoConvite(){
 /* ------------------------------------------------------------------- Rodapé */
 function rodapeHTML(){
   const colunas = [
-    {t:'Institucional',itens:[['Sobre a MEPB','#sobre'],['Departamentos','#departamentos'],['Missões','#missoes'],['Documentos','#documentos']]},
+    {t:'Institucional',itens:[['Sobre a MEPB','#sobre'],['Departamentos','#departamentos'],['Missões','#missoes'],['Documentos','#documentos'],['Área Administrativa','#admin']]},
     {t:'Comunidade',itens:[['Encontre uma Igreja','#localizador'],['Agenda Nacional','#agenda'],['Notícias','#noticias']]},
+    {t:'Mídia',itens:[['TV MEPB','#tv'],['Galeria','#galeria']]},
     {t:'Participe',itens:[['Pedido de Oração','#oracao'],['Doações','#doacoes'],['Contato','#rodape-contato']]},
   ];
   return `<footer style="position:relative;overflow:hidden;background:var(--navy-900);color:rgb(255 255 255/.78)">
@@ -1155,7 +1585,10 @@ function rodapeHTML(){
       </div>
       ${colunas.map(function(c){ return `<nav><h2 style="font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#fff;font-family:var(--font-sans)">${c.t}</h2>
         <ul style="list-style:none;margin:1.1rem 0 0;padding:0;display:flex;flex-direction:column;gap:.5rem">
-          ${c.itens.map(function(it){ return `<li><a href="${it[1]}" style="font-size:.875rem">${it[0]}</a></li>`; }).join('')}
+          ${c.itens.map(function(it){
+            const admin = it[1] === '#admin';
+            return `<li><a href="${admin ? '#' : it[1]}" ${admin ? 'onclick="abrirAreaAdmin();return false;"' : ''} style="font-size:.875rem">${it[0]}</a></li>`;
+          }).join('')}
         </ul>
       </nav>`; }).join('')}
       <div id="rodape-contato">
@@ -1178,10 +1611,136 @@ function rodapeHTML(){
       </div>
     </div>
   </footer>
-  <style>#rodapeGrid{grid-template-columns:1fr}@media(min-width:860px){#rodapeGrid{grid-template-columns:1.2fr 1fr 1fr 1fr 1.1fr}}</style>`;
+  <style>#rodapeGrid{grid-template-columns:1fr}@media(min-width:860px){#rodapeGrid{grid-template-columns:1.3fr repeat(4,1fr) 1.1fr}}</style>`;
 }
+
 /* ==========================================================================
-   PARTE 6 — MONTAGEM E INTERAÇÃO
+   PARTE 6 — ÁREA ADMINISTRATIVA
+   Réplica simplificada do painel em Next.js: dashboard com indicadores reais
+   (calculados a partir dos mesmos dados do portal) e telas de listagem para
+   Igrejas, Pastores, Eventos, Notícias e Mídia. Missionários e Permissões
+   ainda não têm coleção própria no simulador, então mostram um aviso.
+   ========================================================================== */
+const REGIAO_POR_UF = {AM:'Norte',PA:'Norte',RR:'Norte',RN:'Nordeste',CE:'Nordeste',PE:'Nordeste',BA:'Nordeste',PB:'Nordeste',PI:'Nordeste',MA:'Nordeste',AL:'Nordeste',SP:'Sudeste',RJ:'Sudeste',MG:'Sudeste',DF:'Centro-Oeste'};
+
+function adminTabelaHTML(titulo, descricao, colunas, linhas){
+  return `<div class="admin-painel-head"><h1>${titulo}</h1><p>${descricao}</p></div>
+  <div class="card" style="margin-top:1.5rem">
+    <div class="card-body" style="overflow-x:auto">
+      <p style="font-size:.875rem;color:var(--fg-muted);margin-bottom:1rem">${linhas.length} registros</p>
+      <table class="admin-tabela">
+        <thead><tr>${colunas.map(function(c){ return `<th>${c}</th>`; }).join('')}</tr></thead>
+        <tbody>${linhas.map(function(l){ return `<tr>${l.map(function(v){ return `<td>${v}</td>`; }).join('')}</tr>`; }).join('')}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function adminDashboardHTML(){
+  const porRegiao = {};
+  IGREJAS.forEach(function(i){ const r = REGIAO_POR_UF[i.uf] || 'Outra'; porRegiao[r] = (porRegiao[r] || 0) + 1; });
+  const regioes = Object.keys(porRegiao).sort(function(a, b){ return porRegiao[b] - porRegiao[a]; });
+  const maxRegiao = Math.max.apply(null, regioes.map(function(r){ return porRegiao[r]; }));
+  const kpis = [
+    { rotulo: 'Igrejas cadastradas', valor: IGREJAS.length, icone: 'pin' },
+    { rotulo: 'Eventos na agenda', valor: EVENTOS.length, icone: 'calendar' },
+    { rotulo: 'Notícias publicadas', valor: NOTICIAS.length, icone: 'book' },
+    { rotulo: 'Conteúdos na TV', valor: MIDIAS.length, icone: 'play' },
+  ];
+  const recentes = IGREJAS.slice().sort(function(a, b){ return b.fundacao - a.fundacao; }).slice(0, 5);
+
+  return `<div class="admin-painel-head"><h1>Dashboard</h1><p>Visão geral do conteúdo publicado no portal.</p></div>
+  <p style="margin-top:1.25rem;padding:.85rem 1.1rem;border-radius:var(--radius-md);background:var(--accent-subtle);color:var(--accent);font-size:.875rem">Painel de demonstração — os números refletem os dados fictícios deste protótipo.</p>
+  <div class="admin-kpis" style="margin-top:1.5rem">
+    ${kpis.map(function(k){ return `<div class="card"><div class="card-body">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem">
+        <span style="font-size:.8125rem;font-weight:600;color:var(--fg-muted)">${k.rotulo}</span>
+        <span style="flex-shrink:0;display:inline-flex;width:2.25rem;height:2.25rem;align-items:center;justify-content:center;border-radius:var(--radius-md);background:var(--primary-subtle);color:var(--primary)">${ICONES[k.icone]}</span>
+      </div>
+      <span data-numeric style="display:block;margin-top:.75rem;font-family:var(--font-serif);font-size:2rem;font-weight:700">${k.valor}</span>
+    </div></div>`; }).join('')}
+  </div>
+  <div class="card" style="margin-top:1.5rem">
+    <div class="card-body">
+      <h3 style="font-size:1rem;font-weight:700">Igrejas por região</h3>
+      <div style="margin-top:1.25rem;display:flex;flex-direction:column;gap:1rem">
+        ${regioes.map(function(r){ return `<div>
+          <div style="display:flex;justify-content:space-between;font-size:.875rem;font-weight:600"><span>${r}</span><span data-numeric>${porRegiao[r]}</span></div>
+          <div style="margin-top:.4rem;height:.5rem;border-radius:99px;background:var(--bg-muted);overflow:hidden"><div style="width:${(porRegiao[r] / maxRegiao * 100).toFixed(0)}%;height:100%;background:var(--accent);border-radius:99px"></div></div>
+        </div>`; }).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:1.5rem">
+    <div class="card-body" style="overflow-x:auto">
+      <h3 style="font-size:1rem;font-weight:700">Igrejas recentes</h3>
+      <p style="font-size:.8125rem;color:var(--fg-muted);margin-top:.25rem">Últimos registros pela data de fundação.</p>
+      <table class="admin-tabela" style="margin-top:1.1rem">
+        <thead><tr><th>Igreja</th><th>Localidade</th><th>Tipo</th><th>Fundação</th></tr></thead>
+        <tbody>${recentes.map(function(i){ return `<tr><td>${i.nome}</td><td>${i.cidade}/${i.uf}</td><td>${i.tipo}</td><td data-numeric>${i.fundacao}</td></tr>`; }).join('')}</tbody>
+      </table>
+    </div>
+  </div>`;
+}
+
+function renderizarAdmin(view){
+  document.querySelectorAll('.admin-nav-item[data-view]').forEach(function(b){ b.classList.toggle('ativo', b.dataset.view === view); });
+  const alvo = document.getElementById('adminConteudo');
+  if (view === 'igrejas'){
+    alvo.innerHTML = adminTabelaHTML('Igrejas', 'Cadastro das igrejas e congregações filiadas à MEPB.',
+      ['Igreja', 'Tipo', 'Localidade', 'Pastor titular', 'Fundação'],
+      IGREJAS.map(function(i){ return [i.nome, i.tipo, i.cidade + '/' + i.uf, i.pastor, i.fundacao]; }));
+  } else if (view === 'pastores'){
+    alvo.innerHTML = adminTabelaHTML('Pastores', 'Titulares à frente de cada igreja ou congregação.',
+      ['Pastor', 'Igreja', 'Localidade'],
+      IGREJAS.map(function(i){ return [i.pastor, i.nome, i.cidade + '/' + i.uf]; }));
+  } else if (view === 'eventos'){
+    alvo.innerHTML = adminTabelaHTML('Eventos', 'Agenda nacional de convenções, congressos e seminários.',
+      ['Evento', 'Tipo', 'Data', 'Local', 'Inscrições'],
+      EVENTOS.map(function(e){ return [e.titulo, e.tipo, e.dia + ' ' + e.mes + ' ' + e.ano, e.local, e.inscr ? 'Abertas' : '—']; }));
+  } else if (view === 'noticias'){
+    alvo.innerHTML = adminTabelaHTML('Notícias', 'Conteúdo publicado pela Secretaria de Comunicação.',
+      ['Título', 'Categoria', 'Publicação'],
+      NOTICIAS.map(function(n){ return [n.t, n.cat, n.data]; }));
+  } else if (view === 'midia'){
+    alvo.innerHTML = adminTabelaHTML('Mídia', 'Conteúdos publicados na TV MEPB.',
+      ['Título', 'Tipo', 'Preletor', 'Duração', 'Publicação'],
+      MIDIAS.map(function(m){ return [m.titulo, m.tipo, m.preletor, m.duracao, m.data]; }));
+  } else {
+    alvo.innerHTML = adminDashboardHTML();
+  }
+}
+
+function abrirAreaAdmin(){
+  document.getElementById('appPortal').hidden = true;
+  document.getElementById('appAdmin').hidden = false;
+  window.scrollTo(0, 0);
+  renderizarAdmin('dashboard');
+}
+function fecharAreaAdmin(){
+  document.getElementById('appAdmin').hidden = true;
+  document.getElementById('appPortal').hidden = false;
+  window.scrollTo(0, 0);
+}
+
+function inicializarAdmin(){
+  document.getElementById('adminLogoMark').innerHTML = svgLogo(true);
+  document.getElementById('btnVoltarPortal').innerHTML = ICONES.voltar + ' Voltar ao portal';
+  document.getElementById('btnVoltarPortal').addEventListener('click', fecharAreaAdmin);
+
+  const nav = document.getElementById('adminNav');
+  nav.querySelectorAll('.admin-nav-item').forEach(function(btn){
+    btn.innerHTML = (ICONES[btn.dataset.icone] || '') + '<span>' + btn.textContent + '</span>';
+  });
+  nav.addEventListener('click', function(e){
+    const btn = e.target.closest('.admin-nav-item');
+    if (!btn || btn.dataset.view === undefined) return;
+    renderizarAdmin(btn.dataset.view);
+  });
+}
+
+/* ==========================================================================
+   PARTE 7 — MONTAGEM E INTERAÇÃO
    ========================================================================== */
 
 /* ---------------------------------------------------------------- Tema */
@@ -1220,6 +1779,34 @@ function mostrarToast(msg){
   setTimeout(function(){ el.style.opacity = '0'; setTimeout(function(){ el.remove(); }, 300); }, 2600);
 }
 
+/* ------------------------------------------------------------------ Modal */
+let elementoFocoAntesDoModal = null;
+function abrirModal(html, tituloAcessivel){
+  const overlay = document.getElementById('modalOverlay');
+  const caixa = document.getElementById('modalCaixa');
+  document.getElementById('modalConteudo').innerHTML = html;
+  caixa.setAttribute('aria-label', tituloAcessivel || '');
+  overlay.classList.add('aberto');
+  caixa.classList.add('aberto');
+  document.body.style.overflow = 'hidden';
+  elementoFocoAntesDoModal = document.activeElement;
+  document.getElementById('btnFecharModal').focus();
+}
+function fecharModal(){
+  document.getElementById('modalOverlay').classList.remove('aberto');
+  document.getElementById('modalCaixa').classList.remove('aberto');
+  document.body.style.overflow = '';
+  if (elementoFocoAntesDoModal && elementoFocoAntesDoModal.focus) elementoFocoAntesDoModal.focus();
+}
+function inicializarModal(){
+  document.getElementById('btnFecharModal').innerHTML = ICONES.fechar;
+  document.getElementById('btnFecharModal').addEventListener('click', fecharModal);
+  document.getElementById('modalOverlay').addEventListener('click', fecharModal);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && document.getElementById('modalCaixa').classList.contains('aberto')) fecharModal();
+  });
+}
+
 /* --------------------------------------------------------- Montagem da página */
 function montarPagina(){
   document.getElementById('logoLink').innerHTML = svgLogoComTexto(false);
@@ -1251,6 +1838,8 @@ function montarPagina(){
   document.getElementById('secaoAgenda').innerHTML = secaoAgenda();
   document.getElementById('secaoMissoes').innerHTML = secaoMissoes();
   document.getElementById('secaoDepartamentos').innerHTML = secaoDepartamentos();
+  document.getElementById('secaoTV').innerHTML = secaoTV();
+  document.getElementById('secaoGaleria').innerHTML = secaoGaleria();
   document.getElementById('secaoDocumentos').innerHTML = secaoDocumentos();
   document.getElementById('secaoLocalizador').innerHTML = secaoLocalizador();
   document.getElementById('secaoDoacoes').innerHTML = secaoDoacoes();
@@ -1296,6 +1885,10 @@ function montarPagina(){
   inicializarNav();
   inicializarReveal();
   inicializarToasts();
+  inicializarModal();
+  inicializarTV();
+  inicializarGaleria();
+  inicializarAdmin();
 }
 
 /* ------------------------------------------------------------------ Nav */
@@ -1327,6 +1920,17 @@ function inicializarNav(){
   overlay.addEventListener('click', fecharDrawer);
   drawer.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', fecharDrawer); });
   document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fecharDrawer(); });
+
+  /* Menu suspenso "Mídia" — abre/fecha por clique, some ao clicar fora, em um link ou no Esc. */
+  const btnMidia = document.getElementById('btnMidiaMenu');
+  const painelMidia = document.getElementById('menuMidia');
+  function fecharMidia(){ painelMidia.hidden = true; painelMidia.classList.remove('aberto'); btnMidia.setAttribute('aria-expanded','false'); btnMidia.innerHTML = 'Mídia ' + ICONES.chevronDown; }
+  function abrirMidia(){ painelMidia.hidden = false; painelMidia.classList.add('aberto'); btnMidia.setAttribute('aria-expanded','true'); btnMidia.innerHTML = 'Mídia ' + ICONES.chevronDown; }
+  btnMidia.innerHTML = 'Mídia ' + ICONES.chevronDown;
+  btnMidia.addEventListener('click', function(e){ e.stopPropagation(); if (painelMidia.hidden) abrirMidia(); else fecharMidia(); });
+  painelMidia.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', fecharMidia); });
+  document.addEventListener('click', function(e){ if (!painelMidia.hidden && !e.target.closest('.nav-dropdown')) fecharMidia(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') fecharMidia(); });
 }
 
 /* --------------------------------------------------------------- Reveal */
